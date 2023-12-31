@@ -273,7 +273,7 @@ function builtModalChooseDicts(editor,parentNode,arrList){
 }
 async function loadDictFromChoose(data){
     
-    var listPath = data.map(i=>{return '/Dicts/' + i})
+    var listPath = data.map(i=>{return '/chu-khong/Dicts/' + i})
     //caches.open('workbox-precache-v2-'+location.href)
     caches.open('mysite-dynamic')
     .then(function (cache) {
