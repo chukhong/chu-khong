@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Chữ Không google-translate</title>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    
+<div id="google_translate_element"></div>
+
+
+
+<div id="my">You can translate the content of this page by selecting a language in the select box.</div>
+<script>
+/*(function() {
+    var proxied = window.XMLHttpRequest.prototype.send;
+    window.XMLHttpRequest.prototype.send = function() {
+        console.log( arguments );
+        //Here is where you can add any code to process the request. 
+        //If you want to pass the Ajax request object, pass the 'pointer' below
+        var pointer = this
+        var intervalId = window.setInterval(function(){
+                if(pointer.readyState != 4){
+                        return;
+                }
+                console.log( pointer.responseText );
+                //sms.log({fn:"gtranslate",target:null,data:my.innerText})  
+                //Here is where you can add any code to process the response.
+                //If you want to pass the Ajax request object, pass the 'pointer' below
+                clearInterval(intervalId);
+
+        }, 1);//I found a delay of 1 to be sufficient, modify it as you need.
+        return proxied.apply(this, [].slice.call(arguments));
+    };
+
+
+})();
+*/
+var observeDOM = (function(){
+  var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+  return function( obj, callback ){
+    if( !obj || obj.nodeType !== 1 ) return; 
+
+    if( MutationObserver ){
+      // define a new observer
+      var mutationObserver = new MutationObserver(callback)
+
+      // have the observer observe for changes in children
+      mutationObserver.observe( obj, { childList:true, subtree:true })
+      return mutationObserver
+    }
+    
+    // browser support fallback
+    else if( window.addEventListener ){
+      obj.addEventListener('DOMNodeInserted', callback, false)
+      obj.addEventListener('DOMNodeRemoved', callback, false)
+    }
+  }
+})()
+
+observeDOM( document.querySelector('#my'), function(m){ 
+   var addedNodes = [], removedNodes = [];
+
+   m.forEach(record => record.addedNodes.length & addedNodes.push(...record.addedNodes))
+   
+   m.forEach(record => record.removedNodes.length & removedNodes.push(...record.removedNodes))
+
+  //console.clear();
+  if(count==1)
+  sms.log({fn:"gtranslate",target:null,data:my.innerText}) 
+  count++
+  //console.log('Added:', addedNodes, 'Removed:', removedNodes);
+});
+
+function triggerHtmlEvent(element, eventName) {
+  var event;
+  if(document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+  } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+  } 
+}
+var translate = (value)=>{
+  try{
+    my.innerText = value || my.innerText
+    var ele = google_translate_element.querySelector('select')
+    if(ele.value!='vi'){
+      ele.value='vi'
+      triggerHtmlEvent(ele,'change')
+    }
+  }catch(e){
+    sms.error(e)
+  }
+}
+window.addEventListener("load",()=>{
+  // if(location.search){
+  //   var txt = decodeURI(location.search)
+  //   txt = txt.slice(1,txt.length)
+  //   my.innerText = txt
+  // }
+  //window.postMessage("The user is 'bob' and the password is 'secret'");
+
+})
+var count = 0;
+var objAnswer
+var sms = {
+    "log": function (str) {
+        objAnswer.postMessage(str);
+    },
+    "error": function (str) {
+        objAnswer.postMessage({fn:'gtranslate-toasts',target:null,data:"Error: " + str});
+    }
+}
+window.addEventListener("message", (event) => {
+ //console.log(event.data);
+ count = 0;
+ objAnswer = event.source;
+ translate(event.data)
+}, false);
+
+</script>
+<script type="text/javascript">
+var p
+function googleTranslateElementInit() {
+  p = new google.translate.TranslateElement({
+    pageLanguage: 'cn',
+    }, 'google_translate_element');
+
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+
+</body></html>

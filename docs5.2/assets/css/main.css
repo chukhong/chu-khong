@@ -1,0 +1,257 @@
+:root {
+  /* Material Indigo 364b54*/
+  --color-900: #607d8b;
+  --color-800: #576c77;
+  --color-700: #325365;
+  --color-600: #425a65;
+  --color-500: #364b54;
+  --color-200: #9fa8da;
+  --color-100: #c5cae9;
+  --color-50: #e8eaf6;
+  --color-10: #f0f2fe; /* doesn't exist in MD, added 8 to each RGB from 50 */
+  --gray-300: #e0e0e0;
+  --gray-50: #FAFAFA;
+
+  --app-header-bg: var(--color-800);
+  --app-header-bg-highlight: var(--color-600);
+  --app-header-color: var(--gray-50);
+
+  --app-menu-color: var(--color-900);
+  --app-menu-bg: var(--color-10);
+  --app-menu-selected: var(--color-600);
+  --app-menu-bg-highlight: var(--color-100);
+
+  --app-menu-toggled-bg: var(--color-600);
+  --app-menu-toggled-color: var(--color-10);
+
+  --app-editor-bg: #728b98;
+  --app-editor-bg-disabled: var(--gray-300);
+
+  --app-footer-bg: var(--app-header-bg);
+  --app-footer-color: var(--color-100);
+  --app-footer-color-light: var(--color-10);
+
+  --bd-purple: var(--color-800);
+  --bd-violet: var(--color-800);
+  --bd-accent: #ffe484;
+  --bd-violet-rgb: 87,108,119;
+  --bd-accent-rgb: 144,177,194;
+  --bd-pink-rgb: 214,51,132;
+  --bd-teal-rgb: 32,201,151;
+  --docsearch-primary-color: var(--bd-violet);
+  --docsearch-logo-color: var(--bd-violet);
+
+  /*--bd-violet-rgb*/
+  --app-font-size: 12px;
+}
+.d-sm-position-absolute.dropdown-menu,.d-md-position-absolute.dropdown-menu{
+  min-width: 10%;
+  background-color: transparent;
+}
+
+/*// `xs` returns only a ruleset and no media query
+// ... { ... }
+*/
+/*// `xsm` applies to x-small devices (portrait phones, less than 576px)*/
+@media (max-width: 320.98px) { 
+
+ }
+
+/*// `sm` applies to x-small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) { 
+  .d-sm-position-absolute{
+    position: absolute!important;
+  }
+  .d-sm-position-absolute.dropdown-menu{
+    min-width: var(--bs-dropdown-min-width);
+    background-color: var(--color-800);/*var(--bs-dropdown-bg);*/
+  }
+ }
+
+/*// `md` applies to small devices (landscape phones, less than 768px)*/
+@media (max-width: 767.98px) { 
+  .d-md-position-absolute{
+    position: absolute!important;
+  }
+  .d-md-position-absolute.dropdown-menu{
+    min-width: var(--bs-dropdown-min-width);
+    background-color: var(--color-800);/*var(--bs-dropdown-bg);*/
+  }
+
+ }
+
+/*// `lg` applies to medium devices (tablets, less than 992px)*/
+@media (max-width: 991.98px) {
+  .toogle-lg-dropdown{
+    display: none!important;
+  }
+ }
+
+/*// `xl` applies to large devices (desktops, less than 1200px)*/
+@media (max-width: 1199.98px) {
+  .toogle-xl-dropdown{
+    display: none!important;
+  }
+ }
+
+/*// `xxl` applies to x-large devices (large desktops, less than 1400px)*/
+@media (max-width: 1399.98px) { 
+  .toogle-xxl-dropdown{
+    display: none!important;
+  }
+ }
+
+ /*
+  offcanvas-sm ->tắt nó khi nó sm
+  offcanvas-lg ->tắt nó khi nó lớm 
+  d-none -> không hiện
+  d-sm-none -> không hiện khi nó nhỏ
+  navbar-expand-lg navbar-toggler -> khi nó lớn sẽ không hiện
+  d d-start -> hiển thị slider bên trái
+  d d-end -> hiển thị slider bên phải
+
+  data-bs-toggle="offcanvas" 
+  data-bs-target="#bdSidebar"
+ */
+body {
+    padding-bottom: 45px!important;
+}
+body, html {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Nom Na Tong',-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  margin: 0;
+  /* Prevent pull to refresh */
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+}
+.bs-main {
+  display: inline-block;
+  position: relative;
+}
+#ace_editor_demo{
+    position: relative;
+    overflow: hidden;
+    font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    /*font: larger/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;*/
+    /*font-size: 12px;*/
+    padding: 0;
+    direction: ltr;
+    text-align: left;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    width: 100%;
+}
+.full-height{
+  height: 100%;
+  width: 100%;
+}
+.container-xxl{
+  margin: 0px!important;
+  padding: 0px!important;
+}
+/********************
+ * Menu items
+ *******************/
+
+ button[disabled] {
+  opacity: 0.5;
+}
+
+.menu {
+  display: inline;
+  position: relative;
+}
+
+.menu > button, .btn-group > button {
+  background-color: inherit;
+  color: inherit;
+  padding: 5px 7px 5px 7px!important;
+/*  display: inline;
+  min-width: 30px;
+  padding: 10px 10px;*/
+}
+.btn-group > li,.btn-group > ul{
+  padding: 0px!important;
+  margin: 0px!important;
+}
+body.altKey .kbdShortcut {
+  text-decoration: underline;
+}
+
+.menu button {
+  border: none;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.menu button:focus {
+  outline: none;
+}
+
+.menu .menuItemContainer {
+  background-color: var(--app-menu-bg);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  min-width: 180px;
+  position: absolute;
+  z-index: 1;
+}
+
+.menu .menuItemContainer button {
+  background-color: var(--app-menu-bg);
+  color: var(--app-menu-color);
+  display: block;
+  padding: 16px;
+  text-align: left;
+  width: 100%;
+}
+
+.menu kbd {
+  float: right;
+  font-family: inherit;
+}
+
+.menu > button:hover,
+.menu > button:focus,
+.menu > button[aria-expanded="true"] {
+  background-color: var(--app-menu-selected);
+}
+
+.menuItemContainer button:hover,
+.menuItemContainer button:focus {
+  background-color: var(--app-menu-bg-highlight);
+}
+
+.menu button[aria-checked=true] {
+  background-color: var(--app-menu-toggled-bg);
+  color: var(--app-menu-toggled-color);
+}
+
+header #butClose {
+  /* Only shown in standalone */
+  display: none;
+}
+
+/*****************/
+/*****************/
+/*****************/
+.offcanvas,.offcanvas-sm,.offcanvas-md{
+  background-color: var(--app-editor-bg);
+}
+.bd-navbar{
+  padding: 0!important;
+}
+#minitoolbar{
+  background-color: #586d78;
+  border-top: 1px solid #43565f;
+}
+.material-icons-20{
+  font-size: 20px!important;
+}
+
+.btn,input,textarea,.nav-item{
+  font-size: var(--app-font-size)!important;
+}

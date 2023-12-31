@@ -1,232 +1,211 @@
-<html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Chữ Không ACE</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-  <style>
-    table,
-    th,
-    td {
-      margin: 10px 0;
-      border: solid 1px #333;
-      padding: 2px 4px;
-      font: 15px Verdana;
+<!-- <meta name="docsearch:language" content="en">
+<meta name="docsearch:version" content="5.2"> -->
+
+
+
+<!-- SEO description and info -->
+<meta name="description" content="Chữ Không ACE- Ứng dụng Chữ Không giúp bạn biên soạn chữ hán chữ nôm, phiên âm chữ hán, chữ nôm, tra tự điển tiếng hán. Unicode 6.1.0 Radical-Stroke Index">
+
+<!-- Manifest and icons -->
+<!-- <link rel="manifest" href="./manifest.json"> -->
+<link rel="icon" type="image/png" href="./images/favicon.png">
+<meta name="theme-color" content="#e8eaf6">
+<link rel="apple-touch-icon" sizes="192x192" href="./images/icon-192.png">
+
+<!-- Add to homescreen for Chrome on Android. -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="local Text Edit">
+
+<!-- Tile icon for Windows 8 (144x144 + tile color) -->
+<meta name="msapplication-TileImage" content="./images/icon-144.png">
+<meta name="msapplication-TileColor" content="#e8eaf6">
+<meta name="msapplication-tap-highlight" content="no">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/lodash/2.4.1/lodash.js"></script>
+<script src="https://cdn.jsdelivr.net/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+<!-- <script src="/markdown-it/markdown-it.js"></script>
+<script src="https://twemoji.maxcdn.com/twemoji.min.js"></script>
+ -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+<!-- <link href="docs5.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+
+<link rel="stylesheet" href="./css/google-icon-editor.css">
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+
+
+<link href="docs5.2/assets/css/docs.css" rel="stylesheet">
+<link id='stylemain' href="docs5.2/assets/css/main.css" rel="stylesheet">
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+
+<style type="text/css" media="screen">
+    #editor{
+        position: relative;
+        overflow: hidden;
+        /*font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;*/
+        font: larger/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+        /*font-size: 12px;*/
+        padding: 0;
+        direction: ltr;
+        text-align: left;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
-
-    th {
-      font-weight: bold;
+    body{
+        padding-bottom: 0px;
+        background-color: var(--app-editor-bg);
     }
-
-    #loader {
-      border: 16px solid #f3f3f3;
-      border-radius: 50%;
-      border-top: 16px solid blue;
-      border-bottom: 16px solid blue;
-      width: 60px;
-      height: 60px;
-      -webkit-animation: spin 2s linear infinite;
-      animation: spin 2s linear infinite;
-      visibility: hidden;
+    .container{
+        padding-left: 0px;
+        padding-right: 0px;
+        width: 100%;
     }
-
-    @-webkit-keyframes spin {
-      0% {
-        -webkit-transform: rotate(0deg);
-      }
-
-      100% {
-        -webkit-transform: rotate(360deg);
-      }
+    .col-xs-6{
+        padding-left: 0px;
+        padding-right: 15px;  
     }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
+    #iframeGT{
+      margin-left: 0px;
+      border:0px;
+      margin-right: 0px;
+      margin-bottom: 0px;
+      height: -webkit-fill-available;
+      position: absolute;
+      z-index: -1000;
+      top: -200px;
     }
-  </style>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script>
-    var APIID ='AKfycbxG4mL_38JjCPE1z2xcBu-gGtMV7PZig2t4HI3ASlzAJJAHYQYoCTt0qnljsQUVmIbPUg' 
-    var script_url = "https://script.google.com/macros/s/"+APIID+"/exec";
-
-    // Make an AJAX call to Google Script
-    function insert_value() {
-      $("#re").css("visibility", "hidden");
-      document.getElementById("loader").style.visibility = "visible";
-      $('#mySpinner').addClass('spinner');
-
-      var id1 = $("#id").val();
-      var name = $("#name").val();
-
-
-      var url = script_url + "?callback=ctrlq&name=" + name + "&id=" + id1 + "&action=insert";
-
-
-      var request = jQuery.ajax({
-        crossDomain: true,
-        url: url,
-        method: "GET",
-        dataType: "jsonp"
-      });
-
-    }
-
-    function update_value() {
-      $("#re").css("visibility", "hidden");
-      document.getElementById("loader").style.visibility = "visible";
-      var id1 = $("#id").val();
-      var name = $("#name").val();
-      var url = script_url + "?callback=ctrlq&name=" + name + "&id=" + id1 + "&action=update";
-      var request = jQuery.ajax({
-        crossDomain: true,
-        url: url,
-        method: "GET",
-        dataType: "jsonp"
-      });
-    }
-
-    function delete_value() {
-      $("#re").css("visibility", "hidden");
-      document.getElementById("loader").style.visibility = "visible";
-      $('#mySpinner').addClass('spinner');
-      var id1 = $("#id").val();
-      var name = $("#name").val();
-      var url = script_url + "?callback=ctrlq&name=" + name + "&id=" + id1 + "&action=delete";
-      var request = jQuery.ajax({
-        crossDomain: true,
-        url: url,
-        method: "GET",
-        dataType: "jsonp"
-      });
-    }
-
-    // print the returned data
-    function ctrlq(e) {
-      $("#re").html(e.result);
-      $("#re").css("visibility", "visible");
-      read_value();
-    }
-
-    function read_value() {
-      $("#re").css("visibility", "hidden");
-      document.getElementById("loader").style.visibility = "visible";
-      var url = script_url + "?action=read";
-
-      $.getJSON(url, function (json) {
-        // Set the variables from the results array
-
-        // CREATE DYNAMIC TABLE.
-        var table = document.createElement("table");
-
-        var header = table.createTHead();
-        var row = header.insertRow(0);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-
-        cell1.innerHTML = "<b>ID</b>";
-        cell2.innerHTML = "<b>Name</b>";
-
-        // ADD JSON DATA TO THE TABLE AS ROWS.
-        for (var i = 0; i < json.records.length; i++) {
-
-          tr = table.insertRow(-1);
-          var tabCell = tr.insertCell(-1);
-          tabCell.innerHTML = json.records[i].ID;
-          tabCell = tr.insertCell(-1);
-          tabCell.innerHTML = json.records[i].NAME;
-        }
-
-        // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-        var divContainer = document.getElementById("showData");
-        divContainer.innerHTML = "";
-        divContainer.appendChild(table);
-        document.getElementById("loader").style.visibility = "hidden";
-        $("#re").css("visibility", "visible");
-      });
-    }
-    function readJson (){
-      var url = script_url + "?action=readjson";
-      data = {}
-      fetch(url, {
-        method: "GET",
-        mode: 'cors',
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-
-        // method: 'POST',
-        // body: {},
-        // headers: {
-        //     'Content-Type': 'text/plain;charset=utf-8',
-        // }
-
-      })
-      .then((response) => response.json())
-      .then(res=>{
-        console.log(res);
-      })
-    }
-    function insertJson (){
-      var url = script_url + "?action=insert";
-      data = {}
-      fetch(url, {
-        // method: "GET",
-        // mode: 'cors',
-        // headers: {
-        //   "Content-Type": "text/plain;charset=utf-8",
-        // },
-
-        method: 'POST',
-        body: JSON.stringify({name:"test",id:"117"}),
-        // headers: {
-        //     'Content-Type': 'text/plain;charset=utf-8',
-        // }
-
-      })
-      .then((response) => response.json())
-      .then(res=>{
-        console.log(res);
-      })
-    }
-    function testJsonUrl(){
-      body = {
-        'name': 'Bob',
-        'age': '87',
-      };
-      r = "?q="+ JSON.stringify(body)
-      console.log(r)
-    }
-  </script>
+  #userIcon{
+    font-size: 20px; 
+    font-weight: 500; 
+    position: relative; 
+  }
+  #userIcon:before { 
+    position: absolute;
+    content: "\e7fd"; 
+    font-family: "Material Icons";
+   /*display:none;*/
+  }
+</style>
+<!-- <script src="js/app-local-test.js" prepload></script> -->
 </head>
+  <body class="">
+    <div class="skippy visually-hidden-focusable overflow-hidden">
+      <div class="container-xl">
+        <a class="d-inline-flex p-2 m-1" href="#content">Skip to main content</a>
+        <a class="d-none d-md-inline-flex p-2 m-1" href="#bd-docs-nav">Skip to docs navigation</a>
+      </div>
+    </div>
+<div class="position-relative">  
+<iframe id="iframeGT" src="google-translate.html"></iframe>
+</div>
 
-<body>
-  <div align="center">
-    <h1>CRUD OPERATION ON GOOGLE SPREAD SHEET, WEB APPLICATION USING GOOGLE APP SCRIPT .</h1>
-    <p>This is simple application, You can develop your own logic based on your requiremnets.<p>
-        <p>Be careful with the parameters you are sending, it should match the parameters that are recived in google app script.</p>
+<div id="allcanvas"></div>
 
-        <form>
-          ID
-          <input type="text" name="id" id="id">
-          Name
-          <input type="text" name="name" id="name">
-        </form>
-
-        <div id="loader"></div>
-
-        <p id="re"></p>
-
-        <input type="button" id="b1" onClick="insert_value()" value="Insert"></input>
-        <input type="button" onclick="read_value()" value="Read" />
-        <input type="button" onclick="update_value()" value="Update" />
-        <input type="button" onclick="delete_value()" value="Delete" />
-        <a href="YOUR_SPREADSHEET_LINK"
-          target="_blank">Click here to open Spread Sheet </a>
-        <div id="showData"></div>
+<!-- canvas left -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse docs</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdSidebar"></button>
   </div>
-</body>
-<html>
+  <div class="offcanvas-body">
+        <div id="menuRecent" class="menu">
+            <button id="butRecent"  aria-label="Recent" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">history</i>
+            </button>
+            <div id="recentContainer" role="menu" class="menuItemContainer d-none"></div>
+        </div>
+        <div class="menu">
+        <button id="butRecent"  aria-label="Recent" aria-haspopup="true" aria-expanded="false">
+            <i class="material-icons">folder</i>
+        </button>
+      </div>
+  </div>
+</div>
+
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
+
+  <header class="navbar navbar-dark bd-navbar sticky-top">
+  <!-- <div class="navbar offcanvas-flex"> -->
+    <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav" >
+      <li class="nav-item col-lg-auto menu" id="barMain"></li>
+      <li class="nav-item offcanvas-md offcanvas-top flex-grow-1 d-inline" style="height: 45px!important;" id="barExpand"></li>
+    </ul>
+    <ul class="navbar-nav flex-row flex-wrap ms-md-auto">          
+      <li class="nav-item col-6 col-lg-auto menu">
+
+          <button class='btn m-0 p-0' type="button" data-bs-toggle="offcanvas" data-bs-target="#dialogUser" data-cmd-as="dialogUser">
+            <img id='userIcon' src="" alt="" width="24" height="24" class="rounded-circle me-2">
+            <!-- <span class="material-icons">person_outline</span> -->
+            <!-- <i class="material-icons">person_outline</i> -->
+          </button>
+      </li>
+<!--       <li class="nav-item col-6 col-lg-auto menu d-md-none">
+        <button  type="button" 
+        data-bs-toggle="offcanvas"
+        data-bs-target="#barExpand"
+        aria-controls="barExpand" aria-label="Toggle navigation"><i class="material-icons">arrow_drop_down</i></button>
+      </li> -->
+    </ul>
+  <!-- </div> -->
+</header>
+
+  <div class="container-xxl full-height">
+    <pre id="editor" class="result-md ace_editor ace-tm source full-height" draggable="false"></pre>
+    <div id="statusBar">ace rocks!</div>
+  </div>
+ <div  class="navbar-nav flex-row flex-wrap bd-navbar-nav fixed-bottom" id='minitoolbar'>
+ </div>
+  <div id='modals'></div>
+  <div id='modals2'></div>
+
+<!-- <script src="docs5.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<!-- <script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js" integrity="sha256-d3rtug+Hg1GZPB7Y/yTcRixO/wlI78+2m08tosoRn7A=" crossorigin="anonymous"></script> -->
+
+
+
+<!-- <script src="../ace/build/src/ace.js"></script>
+<script src="../ace/build/src/ext-static_highlight.js"></script>
+
+<script src="d.js"></script>
+<script src="editor-boostrap.js" ></script>
+<script src="editor-defining-a-mode.js" ></script>
+ -->
+
+<script src="js/startdict/d.js" ></script>
+<!-- <script src="js/sw.js" ></script> -->
+
+<script src="js/require.js" ></script>
+<!-- <script src="../ace/build/src/ace.js"></script>
+<script src="../ace/build/src/ext-static_highlight.js"></script> -->
+
+<script src="js/app.js" ></script>
+
+<script>
+  var head = d.q("head")
+  if(location.href.indexOf('localhost')!=-1)
+    d.create('link',{rel:"manifest",href:"./manifest-localhost.json"},head)
+  else
+    d.create('link',{rel:"manifest",href:"./manifest.json"},head)
+</script>
+  </body>
+
+</html>
