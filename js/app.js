@@ -30,7 +30,7 @@ window.SHEETNAME = "dictionaries"
 // "unpkg":["https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js",
 // "https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table-locale-all.min.js"]
 require.config({paths: {
-    "ace":"./ace",
+    "ace":"./ace/_src",
     "lib":"./js",
     "data":"./data",
     "tablednd":"https://cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js",
@@ -50,7 +50,7 @@ require(["ace/ace",
     "lib/fns",
 
     // "lib/ace.c9.io.demo.test",
-    "ace/build/src/ace",
+    //"ace/build/src/ace",
     "ace/editor",
     // "ace/ext/options",
     "lib/setting",
