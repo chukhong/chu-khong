@@ -500,7 +500,8 @@ var stardict = function(d,editor,parentNode,ref) {
 
 
 
-    fetch('/stardict/listdist')
+    //fetch('/stardict/listdist')
+    fetch('/chu-khong/js/listdist.json')
     .then((response) => {
       if (response.ok) {
         return response.json();
