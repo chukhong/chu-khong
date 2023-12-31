@@ -50,6 +50,7 @@ require(["ace/ace",
     "lib/fns",
 
     // "lib/ace.c9.io.demo.test",
+    "ace/build/src/ace",
     "ace/editor",
     // "ace/ext/options",
     "lib/setting",
