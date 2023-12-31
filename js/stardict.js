@@ -297,7 +297,7 @@ async function loadDictFromChoose(data){
         ,ext = i.substr(i.length-4,i.length)
         //,findName = partsZip.find(i=>{if(i.fileName==fileName) return i})
         if(!partsZip[fileName] && ext=='.zip'){
-            c = await fetchAsBlob('/Dicts/'+i)
+            c = await fetchAsBlob('/chu-khong/Dicts/'+i)
             b = new File([c], i,{type:c.type})
             file_array.push(b)
         }
