@@ -501,17 +501,30 @@ var stardict = function(d,editor,parentNode,ref) {
 
 
     //fetch('/stardict/listdist')
-    fetch('/chu-khong/js/listdist.json')
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error('Something went wrong');
+    //fetch('/chu-khong/js/listdist.json')
+    // .then((response) => {
+    //   if (response.ok) {
+    //     return response.json();
+    //   }
+    //   throw new Error('Something went wrong');
+    // })
+    
+    var url = script_url + "?q=" + JSON.stringify({ 
+        SHEETNAME: "listdict",
+         action: "filter", 
+         data:{}
+        })
+    fetch(url, {
+        method: "GET",
+        mode: 'cors',
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+        },
     })
-    //.then((response) => response.json())
-    .then(async (data)=>{
+    .then((response) => response.json())
+    .then(async (_data)=>{
         //console.log(data);
-
+        var data = _data.data.map(i=>{return i.NAME})
         builtModalChooseDicts(editor,parentNode,data)
         
         var myListDict = util.getOption('listDict')
