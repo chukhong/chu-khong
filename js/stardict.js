@@ -12,9 +12,10 @@ require("lib/startdict/stardict")
 
 window.userDicts = []
 
-var {userDictSote} = require("lib/idb-keyval-iife")
+var {userDictSote,appStore} = require("lib/idb-keyval-iife")
 
 window.userDictSote = userDictSote
+window.appStore = appStore
 
 var util = require("lib/kitchen-sink/util");
 

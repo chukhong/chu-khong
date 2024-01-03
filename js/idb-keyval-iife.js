@@ -108,3 +108,5 @@ function separateSote (namedb) {
 
 var userDictSote =  separateSote('userDictSote') 
 exports.userDictSote = userDictSote
+var appStore = separateSote('app-store') 
+exports.appStore = appStore

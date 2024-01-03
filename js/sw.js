@@ -16,74 +16,107 @@
 
 'use strict';
 (function (GLOBAL) {
-function listenForWaitingServiceWorker(registration, callback) {
-  function awaitStateChange() {
-    registration.installing.addEventListener('statechange', function() {
-      if (this.state === 'installed') callback(registration);
-    });
-  }
-  if (!registration) return;
-  if (registration.waiting) return callback(registration);
-  if (registration.installing) awaitStateChange();
-  registration.addEventListener('updatefound', awaitStateChange);
-}
-
-// reload once when the new Service Worker starts activating
-var refreshing;
-navigator.serviceWorker.addEventListener('controllerchange',
-  function() {
-    console.log('serviceWorker controllerchange');
-    // if (refreshing) return;
-    // refreshing = true;
-    // window.location.reload();
-  }
-);
-
-function promptUserToRefresh(registration,callback) {
-  // this is just an example
-  // don't use window.confirm in real life; it's terrible
-    if (registration.waiting){
-
-      registration.waiting.addEventListener('message',(data)=>{
-        console.log('event message');
-        console.log(data);
-      })
-      setTimeout(()=>{
-        //registration.waiting.postMessage('SKIP_WAITING');
-      },1000);
+  function listenForWaitingServiceWorker(registration, callback) {
+    function awaitStateChange() {
+      registration.installing.addEventListener('statechange', function () {
+        if (this.state === 'installed') callback(registration);
+      });
     }
-    else{
-      // if (window.confirm(`Đã có phiên bản mới ${app.newVersion} bạn nên cài đặt lại để được thừa hưởng các tính năng mới! OK để làm mới?`)) {
-      //   registration.unregister()
-      //   callback && callback()
-      //   //alert('unregister')
-      //   setTimeout(()=>{
-      //     window.location.reload();
-      //   },1000);
-      // }
+    if (!registration) return;
+    if (registration.waiting) return callback(registration);
+    if (registration.installing) awaitStateChange();
+    registration.addEventListener('updatefound', awaitStateChange);
+  }
+
+  // reload once when the new Service Worker starts activating
+  var refreshing;
+  navigator.serviceWorker.addEventListener('controllerchange',
+    function () {
+      console.log('serviceWorker controllerchange');
+      if (refreshing) return;
+      refreshing = true;
+      window.location.reload();
     }
-}
+  );
 
-var serviceWorkerUpdate;
+  function promptUserToRefresh(registration, callback) {
+    // this is just an example
+    // don't use window.confirm in real life; it's terrible
+    if (registration.waiting) {
+      setTimeout(() => {
+        registration.waiting.postMessage('SKIP_WAITING');
+      }, 1000);
+    }
+    else {
+      if (window.confirm(`Đã có phiên bản mới ${app.newVersion} bạn nên cài đặt lại để được thừa hưởng các tính năng mới! OK để làm mới?`)) {
+        registration.unregister()
+        callback && callback()
+        //alert('unregister')
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+    }
+  }
 
-// from sarah-clack introduce
-window.addEventListener('load', () => {
-   console.log('-------------');
-   console.log('onload');
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-        .register('./service-worker.sarah-clack.js')
-        .then(function(registration){
-          serviceWorkerUpdate = (callback)=>{
+  var serviceWorkerUpdate;
+
+  // from sarah-clack introduce
+  window.addEventListener('load', async () => {
+    console.log('-------------');
+    console.log('onload');
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('./service-worker.sarah-clack.js', { scope: "/chu-khong/" })
+        .then(function (registration) {
+          serviceWorkerUpdate = (callback) => {
             registration.update()
-            promptUserToRefresh(registration,callback)
-            
+            promptUserToRefresh(registration, callback)
+
           }
           listenForWaitingServiceWorker(registration, promptUserToRefresh);
 
-        	//console.log('SW registered! Scope is:'+ registration.scope);
+          //console.log('SW registered! Scope is:'+ registration.scope);
 
         })
-  }
-});
+    }
+
+    var oldVersion = await appStore.get("app.version")
+    console.log(oldVersion);
+    //first time
+    var rand = Math.floor(Math.random() * 10000) + 1;
+    var url = "/chu-khong/js/version.json?v=" + rand
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      }
+    })
+    .then(res => res.json())
+    .then(async (res) => {
+
+      if (oldVersion == undefined) {
+        appStore.set("app.version", res.newVersion)
+        oldVersion = res.newVersion
+      }
+      app.newVersion = res.newVersion
+      if (oldVersion != app.newVersion) {
+
+        if (window.caches) {
+          //appStore.set("deleteCache", true)
+          var cacheNames = await caches.keys()
+          cacheNames.forEach(cacheName => {
+            caches.delete(cacheName);
+          });
+          setTimeout(() => {
+            serviceWorkerUpdate(() => {
+              appStore.set("app.version", app.newVersion)
+            })
+          }, 5000);
+        } 
+      } 
+
+    })
+  });
+
 })(this)

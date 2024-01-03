@@ -59,7 +59,10 @@ require(["ace/ace",
     "lib/dialog-add-word",
     "lib/gtranslate",
     "lib/user",
-    // "lib/sw",
+    
+    //"lib/version",
+    "lib/sw",
+    
     "lib/app-installer",
     "lib/idb-keyval-iife",
 
@@ -70,6 +73,7 @@ require(["ace/ace",
     //var {d} = require("lib/startdict/d")
     require("lib/startdict/d")
     
+
     
     var {barMain} = require('lib/bar-main');
     var {barMini} = require('lib/bar-mini');
