@@ -18,10 +18,15 @@ function builtModal(){
                 'aria-hidden':"true"
             },
             ['form',{id:'formPriority','action':'#',method:'post'},
-                ['div',{class:"modal-dialog modal-lg", role:"document"},
+                ['div',{class:"modal-dialog modal-lg",id:"dialogFormPriority", role:"document"},
                     ['div',{class:"modal-content bd-gray-900"},
-                        ['div',{class:"modal-header"},
-                            ['div',{class:"nav-item", id:"titleDialogSystemWords"},'In order to translate'],
+                        ['div',{class:"modal-header navbar navbar-expand-lg"},
+                             ['h1',{class:"modal-title mt-3", id:"titleDialogSystemWords"},
+                             'In order to translate'
+                             ],
+                             ['h1',{class:"modal-title spinner mx-3","style":"width:30px;height:30px",id:"spinnerFormPriority"},
+                             ''
+                             ],
                             ['button',{'type':"button",'class':"btn-secondary-close",'data-bs-dismiss':"modal", 'aria-label':"Close"}],
                         ],
                         ['div',{class:"modal-body", id:"bodyDialogSystemWords"},
@@ -83,7 +88,8 @@ var dialogUsersTranslate = function(editor) {
     // $('#table').bootstrapTable('hideColumn', 'ID')
     //ajaxRequest()
     //$('#table').tableDnD()
-    
+  
+
     var buildTable = (data)=>{
         return data.map((v,i)=>{
             return  ['tr',{class:""},
@@ -91,29 +97,18 @@ var dialogUsersTranslate = function(editor) {
             ]
         })
     }
+    
+    $('#dialogUsersTranslate').on('shown.bs.modal', initShow)
+    function initShow (){
+        var spinnerFormPriority = document.getElementById("spinnerFormPriority")
+        spinnerFormPriority.style.visibility = "visible";
+        var $tbody = document.querySelector('#table tbody')
+        $tbody.innerHTML=''
 
-    var url = script_url + "?q="+JSON.stringify({
-        SHEETNAME: 'users',
-        action:"filter",
-        data:{}
-    });
-    fetch(url,{
-        method: "GET",
-        mode: 'cors',
-        headers: {
-            "Content-Type": "text/plain;charset=utf-8",
-        },
-    })
-    .then(res=>res.json())
-    .then(listUsers=>{
-        console.log(listUsers);
-        // params.success(res.data)
-        // $('#table').bootstrapTable('hideColumn', 'EMAIL')
-        // $('#table').bootstrapTable('hideColumn', 'ID')
         var url = script_url + "?q="+JSON.stringify({
-            SHEETNAME: 'priority',
+            SHEETNAME: 'users',
             action:"filter",
-            data:{USERID:USERID}
+            data:{}
         });
         fetch(url,{
             method: "GET",
@@ -123,45 +118,15 @@ var dialogUsersTranslate = function(editor) {
             },
         })
         .then(res=>res.json())
-        .then(listPriority=>{
-            function joinPriorityToTableA(a,b){
-                return a.map(ia=>{
-                    var r = ia, _priority = 100,
-                    rb = b.filter((ib)=>{return ib.USERORTHER==ia.ID})
-                    if(rb.length>0)
-                        _priority =rb[0].PRIORITY
-                    r.PRIORITY =_priority
-                    return r 
-                })
-            }
-           var data =  joinPriorityToTableA(listUsers.data, listPriority.data)
-           data.sort((a,b)=>{return a.PRIORITY-b.PRIORITY})
-           //console.log(data);
-        
-            var $table = $('#table')
-            var dom = buildTable(data)
-            //console.log(dom)
-            buildDom(dom, document.querySelector('#table tbody'), {})
-            $table.tableDnD()
-        })
-        
-    })
-
-    $('#formPriority').on('submit',(event)=>{
-        event.preventDefault()
-        var $table = document.querySelector('#table tbody')
-        var tds = $table.querySelectorAll('td')
-        var data = []
-        tds.forEach((td,i)=>{
-            //console.log(td.dataset.id,i)
-            var row = {USERID:USERID,USERORTHER:td.dataset.id,PRIORITY:(i+1)}
-            //data.push(row)
-            console.log(row);
+        .then(listUsers=>{
+            console.log(listUsers);
+            // params.success(res.data)
+            // $('#table').bootstrapTable('hideColumn', 'EMAIL')
+            // $('#table').bootstrapTable('hideColumn', 'ID')
             var url = script_url + "?q="+JSON.stringify({
-                    "SHEETNAME":"priority",
-                    "action":"insert",
-                    "condition":{USERID:USERID,USERORTHER:td.dataset.id},
-                    "data":row,
+                SHEETNAME: 'priority',
+                action:"filter",
+                data:{USERID:USERID}
             });
             fetch(url,{
                 method: "GET",
@@ -169,13 +134,65 @@ var dialogUsersTranslate = function(editor) {
                 headers: {
                     "Content-Type": "text/plain;charset=utf-8",
                 },
-            }).then(res=>res.json())
-            .then(res=>{
-                console.log(res);
             })
+            .then(res=>res.json())
+            .then(listPriority=>{
+                spinnerFormPriority.style.visibility = "hidden";
+
+                function joinPriorityToTableA(a,b){
+                    return a.map(ia=>{
+                        var r = ia, _priority = 100,
+                        rb = b.filter((ib)=>{return ib.USERORTHER==ia.ID})
+                        if(rb.length>0)
+                            _priority =rb[0].PRIORITY
+                        r.PRIORITY =_priority
+                        return r 
+                    })
+                }
+                var data =  joinPriorityToTableA(listUsers.data, listPriority.data)
+                data.sort((a,b)=>{return a.PRIORITY-b.PRIORITY})
+            //console.log(data);
+                
+                var $table = $('#table')
+                var dom = buildTable(data)
+                //console.log(dom)
+                
+                buildDom(dom, $tbody, {})
+                $table.tableDnD()
+            })
+            
         })
 
-    })
+        $('#formPriority').on('submit',(event)=>{
+            event.preventDefault()
+            var $table = document.querySelector('#table tbody')
+            var tds = $table.querySelectorAll('td')
+            var data = []
+            tds.forEach((td,i)=>{
+                //console.log(td.dataset.id,i)
+                var row = {USERID:USERID,USERORTHER:td.dataset.id,PRIORITY:(i+1)}
+                //data.push(row)
+                console.log(row);
+                var url = script_url + "?q="+JSON.stringify({
+                        "SHEETNAME":"priority",
+                        "action":"insert",
+                        "condition":{USERID:USERID,USERORTHER:td.dataset.id},
+                        "data":row,
+                });
+                fetch(url,{
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8",
+                    },
+                }).then(res=>res.json())
+                .then(res=>{
+                    console.log(res);
+                })
+            })
+
+        })
+    }
 };
 
 (function(){

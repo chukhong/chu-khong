@@ -34,8 +34,10 @@ function builtModal(){
             ['form',{id:'formAddWord','action':'#',method:'post'},
                 ['div',{class:"modal-dialog modal-lg", role:"document"},
                     ['div',{class:"modal-content bd-gray-900"},
-                        ['div',{class:"modal-header"},
-                            ['div',{class:"nav-item", id:"titleDialogAddWord"},'Add Word'],
+                        ['div',{class:"modal-header navbar navbar-expand-lg"},
+                            ['h1',{class:"modal-title mt-3", id:"titleDialogAddWord"},'Add Word'],
+                            ['h1',{class:"modal-title spinner mx-3","style":"width:30px;height:30px", id:"spinnerDialogAddWord" },''],
+                            
                             ['button',{'type':"button",'class':"btn-close text-bg-info",'data-bs-dismiss':"modal", 'aria-label':"Close"}],
                         ],
                         ['div',{class:"modal-body", id:"bodyDialogAddWord"},
@@ -140,6 +142,9 @@ var dialogAddWord = function(d,editor) {
         },
         _getUserDataV2(key){
 
+            var spinnerDialogAddWord = document.getElementById("spinnerDialogAddWord")
+            spinnerDialogAddWord.style.visibility = "visible";
+
             var url = script_url + "?q=" + JSON.stringify({ 
                 SHEETNAME: SHEETNAME,
                  action: "filter", 
@@ -155,11 +160,12 @@ var dialogAddWord = function(d,editor) {
             })
             .then((response) => response.json())
             .then(res => {
-                console.log(res);
+                spinnerDialogAddWord.style.visibility = "hidden";
+                //console.log(res);
                 if(res.status=="success"){
                     data = JSON.parse(res.data[0].JSONDATA)
                     var obj = data.shortMeaning
-                    console.log(obj)
+                    //console.log(obj)
                     for(var i in obj){
                         //console.log(i);
                         $('#'+i).val(obj[i])
