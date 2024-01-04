@@ -75,6 +75,7 @@ function builtModal() {
                     }, 
                     ["i",{class:"material-icons"},"language"],
                     "Choose Dictionaries"],
+                ["div",{class:'px-2',id:'appversion'},'']
             ],
         ]
     // var old = $('#modals2')[0].innerHTML
@@ -140,11 +141,11 @@ function handleCredentialResponse(response) {
     .then(r=>{
         //r = decodeURIComponent(r.value)
         //r = r.slice(2,r.length)
-        console.log(r)    
+        //console.log(r)    
         r = JSON.parse(r.value)
         
         //showUserInfor(r)
-        console.log(r)
+        //console.log(r)
         $('#dialogUser h5')[0].innerHTML = r.name
         $('#userIcon')[0].src = r.picture
         $('#buttonDiv').hide()
@@ -163,11 +164,11 @@ function loadIconUser(){
     .then(r1=>{
         //r = decodeURIComponent(r.value)
         //r = r.slice(2,r.length)
-        console.log(r1)    
+        //console.log(r1)    
         var r = JSON.parse(r1.value)
         
         //showUserInfor(r)
-        console.log(r)
+        //console.log(r)
         $('#dialogUser h5')[0].innerHTML = r.name
         $('#userIcon')[0].src = r.picture
         $('#userIcon')[0].src = r.picture

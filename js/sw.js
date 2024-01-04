@@ -98,8 +98,10 @@
       if (oldVersion == undefined) {
         appStore.set("app.version", res.newVersion)
         oldVersion = res.newVersion
+        
       }
       app.newVersion = res.newVersion
+      document.querySelector('#appversion').innerHTML = 'version: '+res.newVersion
       if (oldVersion != app.newVersion) {
 
         if (window.caches) {
