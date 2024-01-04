@@ -63,8 +63,8 @@
 
   // from sarah-clack introduce
   window.addEventListener('load', async () => {
-    console.log('-------------');
-    console.log('onload');
+    //console.log('-------------');
+    //console.log('onload');
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('./service-worker.sarah-clack.js', { scope: "/chu-khong/" })
@@ -82,7 +82,7 @@
     }
 
     var oldVersion = await appStore.get("app.version")
-    console.log(oldVersion);
+    //console.log(oldVersion);
     //first time
     var rand = Math.floor(Math.random() * 10000) + 1;
     var url = "/chu-khong/js/version.json?v=" + rand

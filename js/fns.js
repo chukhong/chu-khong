@@ -4,7 +4,14 @@ var {hanNom} = require("data/hanNom");
 var {hanViet} = require("data/hanViet");
 var {gianPhonThe} = require("data/gianPhonThe");
 
+
+if(localStorage.getItem('hanViet')){
+	hanViet = JSON.parse(localStorage.getItem('hanViet'))
+}
+window.hanViet = hanViet
+
 var buildDom = require("ace/lib/dom").buildDom;
+
 //console.log(boFull)
 var {
 getSelection,
@@ -397,7 +404,8 @@ callfns = function(editor, parentNode,refs) {
       },
       dialogUser:()=>{
 
-      }
+      },
+	  openFile:app.openFile
 	}
 
   $(document).on("click", "[data-cmd-as]", (function(event) {
@@ -429,6 +437,7 @@ callfns = function(editor, parentNode,refs) {
   $("[data-toggle='modal-contextmenu']").on("contextmenu", function(e) {
     e.preventDefault();
     var targetModal = $(this).data('target');
+	//console.log($(this).data('target'));
     $(targetModal).modal("show");
   })
 

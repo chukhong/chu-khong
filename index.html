@@ -166,7 +166,7 @@
             <div id="recentContainer" role="menu" class="menuItemContainer d-none"></div>
         </div>
         <div class="menu">
-        <button id="butRecent"  aria-label="Recent" aria-haspopup="true" aria-expanded="false">
+        <button data-cmd-as="openFile"  aria-label="Recent" aria-haspopup="true" aria-expanded="false">
             <i class="material-icons">folder</i>
         </button>
       </div>
@@ -233,10 +233,6 @@
 <script src="../ace/build/src/ext-static_highlight.js"></script> -->
 
 <script src="js/app.js" ></script>
-<script type="text/javascript">
-  var app = {}
-  
-</script>
 <script>
   var head = d.q("head")
   if(location.href.indexOf('localhost')!=-1)

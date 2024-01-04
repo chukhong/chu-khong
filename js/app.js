@@ -64,6 +64,8 @@ require(["ace/ace",
     
     "lib/app-installer",
     "lib/idb-keyval-iife",
+    "lib/file-system-apis",
+    "lib/dialog-phien-am",
 
     ], function(ace) {
 
@@ -74,6 +76,7 @@ require(["ace/ace",
     
 
     
+    var {app} = require('lib/file-system-apis');
     var {barMain} = require('lib/bar-main');
     var {barMini} = require('lib/bar-mini');
     var {barExpand} = require('lib/bar-expand');
@@ -87,8 +90,9 @@ require(["ace/ace",
     var {dialogUsersTranslate} = require("lib/dialog-users-translate")
     var {user} = require("lib/user")
     var {appInstaller} = require("lib/app-installer")
+    var {dialogPhienAm} = require("lib/dialog-phien-am")
     
-
+    window.app = app
 
 
     /********************************/
@@ -123,6 +127,7 @@ require(["ace/ace",
     barMini(editor,document.getElementById("minitoolbar"),refs)
     barSelected(editor)
     dialogBo(editor)
+    dialogPhienAm(editor)
     
     fns(editor,'#minitoolbar',refs)
     

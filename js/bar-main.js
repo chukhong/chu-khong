@@ -204,7 +204,9 @@ const dom = ["div", { class: "menu"},
             },
                 ["button", {
                     class:'position-relative btn btn-outline-dark ',//d-sm-none',
-                    'data-cmd-as': 'keyboardPhiemAm'
+                    'data-cmd-as': 'keyboardPhiemAm',
+                    'data-toggle':'modal-contextmenu',
+                    'data-target':'#dialogPhienAm'
                     }, 
                     ["i",{class:"material-icons"},"keyboard"],
                     ["span",{class:"position-absolute top-50 start-0 translate-left badge rounded-pill"},"Âm"] //漢越
