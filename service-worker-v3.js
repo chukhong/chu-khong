@@ -112,7 +112,7 @@ self.addEventListener('fetch', function(e) {
       return cachedResponse || fetch(e.request)
     })
   );
-    console.log(listURL);
+    console.log(cachedResponse);
 });
 
 self.addEventListener('push', function (event) {

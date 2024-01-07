@@ -33,7 +33,7 @@ require.config({paths: {
     "ace":"./ace/src",
     "lib":"./js",
     "data":"./data",
-    "tablednd":"https://cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js",
+    "tablednd":"./cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js",
 
 },
 shim : {

@@ -1321,8 +1321,6 @@ listCache = listCache.concat([
 "/chu-khong/js/startdict/stardict.js",
 "/chu-khong/js/startdict/stardict_sync.js",
 "/chu-khong/js/startdict/worker.js",
-"/chu-khong/js/static/listCache.js",
-"/chu-khong/js/static/listCache2.js",
 "/chu-khong/js/sw.js",
 "/chu-khong/js/sw2.js",
 "/chu-khong/js/user.js",
