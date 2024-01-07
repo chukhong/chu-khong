@@ -5,9 +5,7 @@ var {hanViet} = require("data/hanViet");
 var {gianPhonThe} = require("data/gianPhonThe");
 
 
-if(localStorage.getItem('hanViet')){
-	hanViet = JSON.parse(localStorage.getItem('hanViet'))
-}
+
 window.hanViet = hanViet
 
 var buildDom = require("ace/lib/dom").buildDom;
@@ -274,7 +272,7 @@ callfns = function(editor, parentNode,refs) {
 	      }
 	      i = fns.nextCMD.index
       	findKey = Array.isArray(fns.nextCMD.data)?fns.nextCMD.data[i]:textSelected
-      	c = hanViet.filter(e=>{
+      	c = window.hanViet.filter(e=>{
       		w = e[1].split(/\,\s|\,|\;\s|\;/)
       		return w.indexOf(findKey)!=-1
       	})
@@ -332,20 +330,32 @@ callfns = function(editor, parentNode,refs) {
       },
       keyboardPhiemAm:()=>{
       	var i,k,c,w = [],old //與
-      	if(textSelected.length==0)
+		var getLine = false
+      	if(textSelected.length==0){
       		textSelected = getTextPreviousLine(editor)
+			getLine = true
+		}
       	old = textSelected
-      	for (i = 0; i < textSelected.length; i++) {
-      		k = textSelected[i]
-      		c = hanViet.find((e)=>{return e[0]==k})
-	      	if(c){
-	      		w = c[1].split(/\,\s|\,|\;\s|\;/)
-	      		textSelected = textSelected.replace(k,w[0]+" ")
-	      	}
-      	}
+
+		//hanViet.sort((a,b)=>{return a[0].length-b[0].length})
+		window.hanViet.sort((a,b)=>{return b[0].length-a[0].length})
+
+      	// for (i = 0; i < textSelected.length; i++) {
+      	// 	k = textSelected[i]
+      	// 	c = hanViet.find((e)=>{return e[0]==k})
+	    //   	if(c){
+	    //   		w = c[1].split(/\,\s|\,|\;\s|\;/)
+	    //   		textSelected = textSelected.replace(k,w[0]+" ")
+	    //   	}
+      	// }
+		window.hanViet.map(i=>{
+			var w = i[1].split(/\,\s|\,|\;\s|\;/)
+			textSelected = textSelected.replace(new RegExp(i[0],'g'),w[0]+" ")
+		})
       	if(old != textSelected){
       		editor.onPaste(textSelected)
-      		reSelected(editor)
+			if(getLine==false)
+      			reSelected(editor)
       	}
       },
       keyboardGianThe:()=>{

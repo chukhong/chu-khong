@@ -110,7 +110,7 @@ function handleCredentialResponse(response) {
     //console.log(decodeURIComponent(response.credential));
 
     var token = jwt_decode(response.credential)
-    console.log(token);
+    //console.log(token);
 
     var url = script_url + "?q=" + JSON.stringify({ 
         SHEETNAME: 'users',
@@ -236,9 +236,12 @@ function loadIconUser(){
 function showUserInfor(inforJson){
     $('#dialogUser h5')[0].innerHTML = inforJson.name
 }
+
 function initUser(){
     var token = getCookie('session-token2')
     //console.log('session-token',token);
+    
+
     if(token==''){
         google.accounts.id.initialize({
             client_id: "563587575029-89224il8qt9bc2i5d3f15fucn6nutv0t.apps.googleusercontent.com",
