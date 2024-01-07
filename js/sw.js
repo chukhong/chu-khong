@@ -16,6 +16,7 @@
 
 'use strict';
 (function (GLOBAL) {
+
   function listenForWaitingServiceWorker(registration, callback) {
     function awaitStateChange() {
       registration.installing.addEventListener('statechange', function () {
@@ -75,11 +76,12 @@
     //console.log('-------------');
     //console.log('onload');
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
+      navigator
+        .serviceWorker
         .register('./service-worker.sarah-clack.js', { scope: "/chu-khong/" })
         .then(function (registration) {
           //registration.active.postMessage(' service-worker.sarah-clack.js send')
-          
+
           serviceWorkerUpdate = (callback) => {
             registration.update()
             promptUserToRefresh(registration, callback)
@@ -103,33 +105,33 @@
         "Content-Type": "application/json;charset=utf-8",
       }
     })
-    .then(res => res.json())
-    .then(async (res) => {
+      .then(res => res.json())
+      .then(async (res) => {
 
-      if (oldVersion == undefined) {
-        appStore.set("app.version", res.newVersion)
-        oldVersion = res.newVersion
-        
-      }
-      app.newVersion = res.newVersion
-      document.querySelector('#appversion').innerHTML = 'version: '+res.newVersion
-      if (oldVersion != app.newVersion) {
+        if (oldVersion == undefined) {
+          appStore.set("app.version", res.newVersion)
+          oldVersion = res.newVersion
 
-        if (window.caches) {
-          //appStore.set("deleteCache", true)
-          var cacheNames = await caches.keys()
-          cacheNames.forEach(cacheName => {
-            caches.delete(cacheName);
-          });
-          setTimeout(() => {
-            serviceWorkerUpdate(() => {
-              appStore.set("app.version", app.newVersion)
-            })
-          }, 5000);
-        } 
-      } 
+        }
+        app.newVersion = res.newVersion
+        document.querySelector('#appversion').innerHTML = 'version: ' + res.newVersion
+        if (oldVersion != app.newVersion) {
 
-    })
+          if (window.caches) {
+            //appStore.set("deleteCache", true)
+            var cacheNames = await caches.keys()
+            cacheNames.forEach(cacheName => {
+              caches.delete(cacheName);
+            });
+            setTimeout(() => {
+              serviceWorkerUpdate(() => {
+                appStore.set("app.version", app.newVersion)
+              })
+            }, 5000);
+          }
+        }
+
+      })
   });
 
 })(this)

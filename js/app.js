@@ -60,7 +60,7 @@ require(["ace/ace",
     "lib/gtranslate",
     "lib/user",
     
-    "lib/sw",
+    "lib/sw-3",
     
     "lib/app-installer",
     "lib/idb-keyval-iife",
