@@ -147,7 +147,7 @@ function initUser(){
 }
 var basicFN = function(d,editor) {
     var app={}
-    const butInstall = document.getElementById('butInstall');
+    var butInstall = document.getElementById('butInstall');
 
       /**
        * Track successful app installs
@@ -156,6 +156,7 @@ var basicFN = function(d,editor) {
         //gaEvent('Install', 'installed');
         console.log('Install', 'installed');
         butInstall.setAttribute('disabled', true);
+        butInstall.style.visibility='hidden'
         butInstall.classList.remove('d-none');
       });
 
@@ -181,6 +182,8 @@ var basicFN = function(d,editor) {
       // Handle the install button click
       butInstall.addEventListener('click', () => {
         butInstall.setAttribute('disabled', true);
+        butInstall.style.visibility='hidden'
+        
         app.installPrompt.prompt();
         //gaEvent('Install', 'clicked');
         console.log('Install', 'clicked');

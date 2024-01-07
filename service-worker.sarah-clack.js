@@ -49,11 +49,11 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 self.addEventListener('message',(event)=>{
     var {data} = event
-    if (data === 'SKIP_WAITING') {
-      workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
-      //workbox.precaching.precacheAndRoute(cacheName, {});
-    }    
+    // if (data === 'SKIP_WAITING') {
+    //   workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+    // }  
 
+    console.log('service worer ',data);
     // switch (data.key){
     //     case 'load': loadMulti();break;
     //     case 'query': filterWord(data.text);break;

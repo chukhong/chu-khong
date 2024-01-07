@@ -6,16 +6,7 @@ if(localStorage.getItem('hanViet')){
 	window.hanViet = JSON.parse(localStorage.getItem('hanViet'))
 }
 
-
-window.addEventListener('load',()=>{
-    if(window.USERID==undefined)
-    {
-        cookieStore.get('session-userinfor')
-        .then(res=>{
-            res = JSON.parse(res.value)
-            window.USERID = res.uuid
-        })
-    }
+function loadData (){
     var url = script_url + "?q="+JSON.stringify({
         SHEETNAME: 'hanViet',
         action:"filter",
@@ -43,6 +34,20 @@ window.addEventListener('load',()=>{
             localStorage.setItem('hanViet',JSON.stringify(hanViet))
         }
     })
+}
+window.addEventListener('load',()=>{
+    if(window.USERID==undefined)
+    {
+        cookieStore.get('session-userinfor')
+        .then(res=>{
+            res = JSON.parse(res.value)
+            window.USERID = res.uuid
+            loadData()
+        })
+    }else{
+        loadData()
+    }
+    
 })
 // console.log(url);
 function builtModal(){

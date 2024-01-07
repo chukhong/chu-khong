@@ -28,14 +28,22 @@
     registration.addEventListener('updatefound', awaitStateChange);
   }
 
+  navigator.serviceWorker.ready.then((registration) => {
+    //registration.active.postMessage('SKIP_WAITING')
+    // registration.active.postMessage(
+    //   "Test message sent immediately after creation",
+    // );
+  });
+
   // reload once when the new Service Worker starts activating
   var refreshing;
   navigator.serviceWorker.addEventListener('controllerchange',
     function () {
-      console.log('serviceWorker controllerchange');
+      console.log('[ServiceWorker] controllerchange');
       if (refreshing) return;
       refreshing = true;
-      window.location.reload();
+      //alert('reload serviceWorker controllerchange')
+      //window.location.reload();
     }
   );
 
@@ -53,6 +61,7 @@
         callback && callback()
         //alert('unregister')
         setTimeout(() => {
+          //alert('reload serviceWorker promptUserToRefresh')
           window.location.reload();
         }, 1000);
       }
@@ -69,6 +78,8 @@
       navigator.serviceWorker
         .register('./service-worker.sarah-clack.js', { scope: "/chu-khong/" })
         .then(function (registration) {
+          //registration.active.postMessage(' service-worker.sarah-clack.js send')
+          
           serviceWorkerUpdate = (callback) => {
             registration.update()
             promptUserToRefresh(registration, callback)
