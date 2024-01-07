@@ -41,6 +41,7 @@ shim : {
 }});
 
 require(["ace/ace", 
+    "ace/ext/searchbox",
     "lib/bar-main",
     "lib/bar-mini",
     "lib/bar-expand",
@@ -66,6 +67,7 @@ require(["ace/ace",
     "lib/idb-keyval-iife",
     "lib/file-system-apis",
     "lib/dialog-phien-am",
+    
 
     ], function(ace) {
 
