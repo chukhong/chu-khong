@@ -18,17 +18,17 @@
 var rand = Math.floor(Math.random() * 10000) + 1;
 
 var listCache = [
-  "https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js",
-  "https://cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js",
-  "https://cdn.jsdelivr.net/lodash/2.4.1/lodash.js",
-  "https://cdn.jsdelivr.net/bootstrap/3.2.0/js/bootstrap.min.js",
-  "https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css",
-  "https://cdn.jsdelivr.net/npm/@docsearch/css@3",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js",
-  "https://cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js",
-  "https://tranminhhuydn.github.io/chu-khong/fonts/NomNaTong-Regular.ttf",
-  "https://fonts.gstatic.com/s/materialicons/v139/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2",
+  "./cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js",
+  "./cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js",
+  "./cdn.jsdelivr.net/lodash/2.4.1/lodash.js",
+  "./cdn.jsdelivr.net/bootstrap/3.2.0/js/bootstrap.min.js",
+  "./cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css",
+  "./cdn.jsdelivr.net/npm/@docsearch/css@3.ccs",
+  "./cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
+  "./cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js",
+  "./cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js",
+  "./tranminhhuydn.github.io/chu-khong/fonts/NomNaTong-Regular.ttf",
+  "./fonts.gstatic.com/s/materialicons/v139/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2",
   
   ]
 //importScripts("/stardict/dirPublic/?list=ace/src");
@@ -111,8 +111,22 @@ self.addEventListener('fetch', function(e) {
       //console.log(cachedResponse)
       return cachedResponse || fetch(e.request)
     })
+    .catch(async(error)=>{
+        // catch is only triggered if an exception is thrown, which is likely
+        // due to a network error.
+        // If fetch() returns a valid HTTP response with a response code in
+        // the 4xx or 5xx range, the catch() will NOT be called.
+        console.log("Fetch failed; returning cached page instead.", error);
+
+        //const cache = await caches.open(CACHE_NAME);
+        // if (event.request.url.includes(START_URL)) {
+        //   return await cache.match(START_URL);
+        // }
+        //return await cache.match(OFFLINE_URL);
+      
+    })
   );
-    console.log(cachedResponse);
+  console.log(listCache);
 });
 
 self.addEventListener('push', function (event) {

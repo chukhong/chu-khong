@@ -16,7 +16,7 @@
 
 'use strict';
 (function (GLOBAL) {
-
+  var appversion = document.querySelector('#appversion')
   var app = {
 
   }
@@ -30,7 +30,7 @@
     if ('serviceWorker' in navigator) {
       navigator
         .serviceWorker
-        .register('./service-worker-v3.js') //, { scope: "/chu-khong/" }
+        .register('./service-worker-v5.js')//, { scope: "/test-serviecWorker/" }
         .then(function (registration) {
 
 
@@ -47,7 +47,7 @@
           var oldVersion = localStorage.getItem('app.version')
           //first time
           var rand = Math.floor(Math.random() * 10000) + 1;
-          var url = "/chu-khong/js/version.json?v=" + rand
+          var url = "/test-sw-4/js/version.json?v=" + rand
           fetch(url, {
             method: "GET",
             headers: {
@@ -64,7 +64,8 @@
               //registration.active.postMessage('SKIP_WAITING');
             }
             app.newVersion = res.newVersion
-            document.querySelector('#appversion').innerHTML = 'version: ' + res.newVersion
+            
+            appversion.innerHTML = 'version: ' + res.newVersion
             if (oldVersion != app.newVersion) {
 
               if (window.caches) {
@@ -81,11 +82,12 @@
             }
 
           })
+          .catch(error=>{
+
+          })
         })
     }
-    document.querySelector('#appversion').innerHTML = 'version: ' + localStorage.getItem('app.version')
-    navigator.serviceWorker.ready.then(function(registration) {
-    });
-  });
+    appversion.innerHTML = 'version: ' + localStorage.getItem('app.version')|| "1.1.1"
 
+  });
 })(this)
