@@ -381,23 +381,23 @@ var jszipWorker = new Worker("js/startdict/jszip-worker.js");
         }
     }
 window.loadUserDict = function(){
-    fetch('/dictionaries/getAll')
-    .then(r=>r.json())
-    .then(r=>{
-        //console.log(r);
-        if(Array.isArray(r)){
-            window.userDicts = r
-            userDictSote.set('dictionaries',r)
-        }else
-        throw new Error('Had some error')
-    })
-    .catch(e=>{
-        userDictSote
-        .get('dictionaries')
-        .then((r)=>{
-            window.userDicts = r
-        })
-    })
+    // fetch('/dictionaries/getAll')
+    // .then(r=>r.json())
+    // .then(r=>{
+    //     //console.log(r);
+    //     if(Array.isArray(r)){
+    //         window.userDicts = r
+    //         userDictSote.set('dictionaries',r)
+    //     }else
+    //     throw new Error('Had some error')
+    // })
+    // .catch(e=>{
+    //     userDictSote
+    //     .get('dictionaries')
+    //     .then((r)=>{
+    //         window.userDicts = r
+    //     })
+    // })
 }
 function searchUserDict(key){
     var template = `<div class='list-group-item py-3 lh-sm bd-yellow-200'>

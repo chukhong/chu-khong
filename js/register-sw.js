@@ -16,7 +16,7 @@
 
 'use strict';
 (function (GLOBAL) {
-  var appversion = document.querySelector('#appversion')
+  
   var app = {
 
   }
@@ -25,6 +25,7 @@
 
   // from sarah-clack introduce
   window.addEventListener('load', async () => {
+    var appversion = document.querySelector('#appversion')
     //console.log('-------------');
     //console.log('onload');
     if ('serviceWorker' in navigator) {
