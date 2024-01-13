@@ -51,6 +51,7 @@
 <link rel="stylesheet" href="./css/font-awesome.min.css">
 
 <link rel="stylesheet" href="./css/google-icon-editor.css">
+<link rel="stylesheet" href="./css/g-drive-style.css">
 <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
 
 
@@ -124,7 +125,10 @@
     border-top:6px solid rgba(0,174,239,.8);
     border-radius:100%;
   }
-
+  /* .zeile {
+    border: 1px solid red;
+    overflow:hidden;
+  } */
   @-webkit-keyframes rotation {
     from {-webkit-transform: rotate(0deg);}
     to {-webkit-transform: rotate(359deg);}
@@ -158,24 +162,7 @@
 <div id="allcanvas"></div>
 
 <!-- canvas left -->
-<div class="offcanvas offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
-  <div class="offcanvas-header border-bottom">
-    <h5 class="offcanvas-title" id="bdSidebarOffcanvasLabel">Browse docs</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdSidebar"></button>
-  </div>
-  <div class="offcanvas-body">
-        <div id="menuRecent" class="menu">
-            <button id="butRecent"  aria-label="Recent" aria-haspopup="true" aria-expanded="false">
-                <i class="material-icons">history</i>
-            </button>
-            <div id="recentContainer" role="menu" class="menuItemContainer d-none"></div>
-        </div>
-        <div class="menu">
-        <button data-cmd-as="openFile"  aria-label="Recent" aria-haspopup="true" aria-expanded="false">
-            <i class="material-icons">folder</i>
-        </button>
-      </div>
-  </div>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="leftSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
 </div>
 
 <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
@@ -206,7 +193,7 @@
 </header>
 
   <div class="container-xxl full-height">
-    <pre id="editor" class="result-md ace_editor ace-tm source full-height" draggable="false"></pre>
+    <pre id="id-editor" class="result-md ace_editor ace-tm source full-height" draggable="false"></pre>
     <div id="statusBar">ace rocks!</div>
   </div>
  <div  class="navbar-nav flex-row flex-wrap bd-navbar-nav fixed-bottom" id='minitoolbar'>
@@ -246,6 +233,9 @@
   else
     d.create('link',{rel:"manifest",href:"./manifest.json"},head)
 </script>
+
+<script async defer src="https://apis.google.com/js/api.js"></script>
+<script async defer src="https://accounts.google.com/gsi/client"></script>
   </body>
 
 </html>

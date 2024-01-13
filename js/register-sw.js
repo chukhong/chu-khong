@@ -48,7 +48,7 @@
           var oldVersion = localStorage.getItem('app.version')
           //first time
           var rand = Math.floor(Math.random() * 10000) + 1;
-          var url = "/test-sw-4/js/version.json?v=" + rand
+          var url = "/chu-khong/js/version.json?v=" + rand
           fetch(url, {
             method: "GET",
             headers: {

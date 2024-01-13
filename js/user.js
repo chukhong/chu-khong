@@ -186,8 +186,10 @@ function loadIconUser(){
     cookieStore
     .get('session-userinfor')
     .then(res=>{
-        var userInfor = JSON.parse(res.value)
-        window.USERID = userInfor.uuid
+        if(res && res.value){
+            var userInfor = JSON.parse(res.value)
+            window.USERID = userInfor.uuid
+        }
         //console.log(userInfor.uuid);
     })
 
@@ -261,11 +263,12 @@ function initUser(){
 var basicFN = function(d,editor) {
     builtModal()
     //console.log('d.init(initUser)');
-    d.init(initUser)
+    //d.init(initUser)
     
     // window.addEventListener('load', function() {
     //     initUser()
     // })
+    initUser()
 };
 
 (function() {

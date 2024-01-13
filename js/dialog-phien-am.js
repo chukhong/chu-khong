@@ -40,9 +40,11 @@ window.addEventListener('load',()=>{
     {
         cookieStore.get('session-userinfor')
         .then(res=>{
-            res = JSON.parse(res.value)
-            window.USERID = res.uuid
-            loadData()
+            if(res && res.value){
+                res = JSON.parse(res.value)
+                window.USERID = res.uuid
+                loadData()
+            }
         })
     }else{
         loadData()

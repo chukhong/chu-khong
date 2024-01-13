@@ -40,9 +40,13 @@ shim : {
 
 }});
 
-require(["ace/ace", 
+require([
+    "ace/ace", 
     "ace/ext/searchbox",
+    "lib/app-toast",
     "lib/bar-main",
+    //"lib/g-drive-script",
+    "lib/bar-left-side",
     "lib/bar-mini",
     "lib/bar-expand",
     "lib/bar-selected",
@@ -55,7 +59,7 @@ require(["ace/ace",
     "ace/editor",
     // "ace/ext/options",
     "lib/setting",
-    "lib/stardict",
+    "lib/dialog-result-search-word",
     "lib/startdict/d",
     "lib/dialog-add-word",
     "lib/gtranslate",
@@ -67,12 +71,12 @@ require(["ace/ace",
     "lib/idb-keyval-iife",
     "lib/file-system-apis",
     "lib/dialog-phien-am",
+    "lib/dialog-rename",
     
 
     ], function(ace) {
 
-    var editor = ace.edit('editor');
-    
+    window.editor = ace.edit('id-editor');
     //var {d} = require("lib/startdict/d")
     require("lib/startdict/d")
     
@@ -80,6 +84,7 @@ require(["ace/ace",
     
     var {app} = require('lib/file-system-apis');
     var {barMain} = require('lib/bar-main');
+    var {barLeftSide} = require('lib/bar-left-side');
     var {barMini} = require('lib/bar-mini');
     var {barExpand} = require('lib/bar-expand');
     var {barSelected} = require('lib/bar-selected');
@@ -87,12 +92,13 @@ require(["ace/ace",
     var {dialogBo} = require("lib/dialog-bo")
     var {setting} = require("lib/setting")
     var {gtranslate} = require("lib/gtranslate")
-    var {stardict} = require("lib/stardict")
+    var {dialogResultSearchWord} = require("lib/dialog-result-search-word")
     var {dialogAddWord} = require("lib/dialog-add-word")
     var {dialogUsersTranslate} = require("lib/dialog-users-translate")
     var {user} = require("lib/user")
     var {appInstaller} = require("lib/app-installer")
     var {dialogPhienAm} = require("lib/dialog-phien-am")
+    var {dialogRename} = require("lib/dialog-rename")
     
     window.app = app
 
@@ -124,18 +130,23 @@ require(["ace/ace",
 
     var refs ={}
     
+    var {appToast} = require("lib/app-toast")
+    appToast(app)
+
     barMain(editor,document.getElementById("barMain"))
     barExpand(editor)
     barMini(editor,document.getElementById("minitoolbar"),refs)
+    barLeftSide(editor,document.getElementById("leftSidebar"),app)
+    app.addEvent()
     barSelected(editor)
     dialogBo(editor)
     dialogPhienAm(editor)
+    dialogRename(editor)
     
     fns(editor,'#minitoolbar',refs)
-    
-    
 
-    stardict(d,editor,$('body')[0])
+
+    dialogResultSearchWord(d,editor,$('body')[0])
     
     dialogAddWord(d,editor)
     dialogUsersTranslate(d,editor)
@@ -152,9 +163,10 @@ require(["ace/ace",
 
     
     //window.addEventListener('load',(event)=>{
-        d.autoLoadId()
-        d.event = event
-        d.loadFns(event)
+        // d.autoLoadId()
+        // d.event = event
+        // d.loadFns(event)
     //)
     window.Editor = editor;
+
 });

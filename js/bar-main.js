@@ -5,10 +5,17 @@ const dom = ["div", { class: "menu"},
     ["button", {
         class:'btn',
         'data-bs-toggle':"offcanvas",
-        'data-bs-target':"#bdSidebar",
+        'data-bs-target':"#leftSidebar",
         'aria-expanded':"false",
         'aria-label':"Close",
     }, ["i",{class:"material-icons"},"menu"]],
+    ['button',{
+        'id':'fileName',
+        'class':'btn overflow-hidden',
+        'style':'width:40px; white-space: nowrap;',
+        'data-toggle':'modal-left-click',
+        'data-target':'#dialogRename'
+        },'New File.txt'],
     ["button", {
         class:'btn',
         'data-bs-toggle':"offcanvas",
@@ -246,7 +253,8 @@ const dom = ["div", { class: "menu"},
         ["i",{class:"material-icons"},"download"],
     ],
 ]
-var barMain = function(editor, parentNode,refs) {
+var 
+barMain = function(editor, parentNode,refs) {
     buildDom(dom,parentNode, refs)
 };
 

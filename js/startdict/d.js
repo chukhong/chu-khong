@@ -19,15 +19,15 @@ d.create = (tag, objs, parent) => {
     if (parent) parent.append(c);
     return c
 };
+function toTitleCase(str) {
+    var c = str.replace(/(\w+)/g, (txt) => {
+        return txt.charAt(0).toUpperCase() + txt.substr(1);
+    }).replace(/([^\w])/g, '');
+    return c.charAt(0).toLowerCase() + c.substr(1);
+};
+
 d.autoLoadId = () => {
     var globals = d.querySelectorAll('[id]');
-
-    function toTitleCase(str) {
-        var c = str.replace(/(\w+)/g, (txt) => {
-            return txt.charAt(0).toUpperCase() + txt.substr(1);
-        }).replace(/([^\w])/g, '');
-        return c.charAt(0).toLowerCase() + c.substr(1);
-    };
     globals.forEach(e => {
         var id = toTitleCase(e.id);
         window[id] = d.id(e.id)
@@ -41,14 +41,57 @@ d.qAll = d.querySelectorAll;
 d.event = null
 d.fns = []
 d.init = function(cb){
+    observeDOM(document.querySelector('body'), function(m){ 
+        var addedNodes = [], removedNodes = [];
+    
+        m.forEach(record => record.addedNodes.length & addedNodes.push(...record.addedNodes))
+        
+        m.forEach(record => record.removedNodes.length & removedNodes.push(...record.removedNodes))
+
+        // bind for what is object
+        d.autoLoadId()
+        //console.log('Added:', addedNodes, 'Removed:', removedNodes);
+        
+    });
+    
     if(cb) 
         d.fns.push(cb)
+
+    d.autoLoadId()
+    d.loadFns({})
 }
 d.loadFns = function(event){
     d.fns.map(i=>{
         i(event)
     })
 }
+var 
+observeDOM = (function(){
+    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+    return function( obj, callback ){
+        if( !obj || obj.nodeType !== 1 ) return; 
+
+        if( MutationObserver ){
+        // define a new observer
+            var mutationObserver = new MutationObserver(callback)
+
+            // have the observer observe for changes in children
+            mutationObserver.observe( obj, { 
+                childList: true,
+                subtree: true,
+                })
+            return mutationObserver
+        }
+        
+        // browser support fallback
+        else if( window.addEventListener ){
+        obj.addEventListener('DOMNodeInserted', callback, false)
+        obj.addEventListener('DOMNodeRemoved', callback, false)
+        }
+    }
+})()
+
 
     //exports.d = d;
     /*
@@ -67,4 +110,5 @@ d.loadFns = function(event){
         //exports.d = d;
     }
     GLOBAL.d = d
+    d.init()
 })(this)
