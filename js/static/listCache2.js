@@ -746,7 +746,6 @@ listCache = listCache.concat([
 "/chu-khong/js/dialog-result-search-word.js",
 "/chu-khong/js/dialog-users-translate.js",
 "/chu-khong/js/editor-defining-a-mode.js",
-"/chu-khong/js/editor-minitoolbar.js",
 "/chu-khong/js/file-system-apis.js",
 "/chu-khong/js/fns.js",
 "/chu-khong/js/g-drive-script.js",
