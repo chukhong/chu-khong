@@ -10,17 +10,18 @@ var listCache = [
 
   ]
 importScripts("/chu-khong/js/static/listCache2.js");
-listCache = listCache.concat(["/chu-khong/cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js",
-"/chu-khong/cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js",
-"/chu-khong/cdn.jsdelivr.net/lodash/2.4.1/lodash.js",
-"/chu-khong/cdn.jsdelivr.net/bootstrap/3.2.0/js/bootstrap.min.js",
-"/chu-khong/cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css",
-"/chu-khong/cdn.jsdelivr.net/npm/@docsearch/css@3.css",
-"/chu-khong/cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
-"/chu-khong/cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js",
-"/chu-khong/cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js",
-"/chu-khong/fonts/NomNaTong-Regular.ttf",
-"/chu-khong/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2"])
+// listCache = listCache.concat(["/chu-khong/cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js",
+// "/chu-khong/cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js",
+// "/chu-khong/cdn.jsdelivr.net/lodash/2.4.1/lodash.js",
+// "/chu-khong/cdn.jsdelivr.net/bootstrap/3.2.0/js/bootstrap.min.js",
+// "/chu-khong/cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css",
+// "/chu-khong/cdn.jsdelivr.net/npm/@docsearch/css@3.css",
+// "/chu-khong/cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
+// "/chu-khong/cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js",
+// "/chu-khong/cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js",
+// "/chu-khong/fonts/NomNaTong-Regular.ttf",
+// "/chu-khong/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2"
+// ])
 
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 workbox.setConfig({debug: false});
@@ -60,7 +61,11 @@ self.addEventListener('fetch', function (event) {
     caches.open(CACHE_NAME).then(function (cache) {
       return cache.match(event.request).then(function (response) {
         var fetchPromise = fetch(event.request).then(function (networkResponse) {
-          cache.put(event.request, networkResponse.clone());
+          try{
+            cache.put(event.request, networkResponse.clone());
+          }catch(error){
+            console.log('Error cache ',error.message);
+          }
           return networkResponse;
         }).catch (error=>{
           console.log('Error fetch ',error.message);
