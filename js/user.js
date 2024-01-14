@@ -269,6 +269,8 @@ var basicFN = function(d,editor) {
     //     initUser()
     // })
     initUser()
+    //console.log('[user] load');
+    d.id('appversion').innerHTML = 'version: ' + localStorage.getItem('app.version')
 };
 
 (function() {

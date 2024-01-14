@@ -1,78 +1,72 @@
+// Incrementing OFFLINE_VERSION will kick off the install event and force
+// previously cached resources to be updated from the network.
 const OFFLINE_VERSION = 1;
-const CACHE_NAME = "offline";
+const CACHE_NAME = "offline-precache";
 // Customize this with a different URL if needed.
-const START_URL = "start.html";
-const OFFLINE_URL = "offline.html";
+const START_URL = "index.html";
+const OFFLINE_URL = "index.html";
+var list1 = ["index.html","index.html"]
+var listCache = [
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      // Setting {cache: 'reload'} in the new request will ensure that the
-      // response isn't fulfilled from the HTTP cache; i.e., it will be from
-      // the network.
-      await Promise.all([
-        cache.add(new Request(OFFLINE_URL, { cache: "reload" })),
-        cache.add(new Request(START_URL, { cache: "reload" })),
-      ]);
-    })()
-  );
-  // Force the waiting service worker to become the active service worker.
-  self.skipWaiting();
+  ]
+importScripts("/chu-khong/js/static/listCache2.js");
+listCache = listCache.concat(["/chu-khong/cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js",
+"/chu-khong/cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js",
+"/chu-khong/cdn.jsdelivr.net/lodash/2.4.1/lodash.js",
+"/chu-khong/cdn.jsdelivr.net/bootstrap/3.2.0/js/bootstrap.min.js",
+"/chu-khong/cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css",
+"/chu-khong/cdn.jsdelivr.net/npm/@docsearch/css@3.css",
+"/chu-khong/cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
+"/chu-khong/cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js",
+"/chu-khong/cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js",
+"/chu-khong/fonts/NomNaTong-Regular.ttf",
+"/chu-khong/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2"])
+
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+workbox.setConfig({debug: false});
+workbox.core.setCacheNameDetails({
+  prefix: 'offline',
+  suffix: '',
+  precache: 'precache',
+  runtime: 'runtime-name'
 });
 
-self.addEventListener("activate", (event) => {
+self.__precacheManifest = [].concat(listCache || []);
+//self.__precacheManifest = [].concat( []);
+workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+//console.log(listCache);
+self.addEventListener('install', event => {
+  console.log('[ServiceWorker] Install');
   event.waitUntil(
     (async () => {
-      // Enable navigation preload if it's supported.
-      // See https://developers.google.com/web/updates/2017/02/navigation-preload
-      if ("navigationPreload" in self.registration) {
-        await self.registration.navigationPreload.enable();
-      }
+      caches.open(CACHE_NAME)
+      .then(cache => {
+          return cache.addAll(listCache);
+      })
+      .then(() => {
+        return self.skipWaiting();
+      })
     })()
   );
-
-  // Tell the active service worker to take control of the page immediately.
-  self.clients.claim();
 });
 
-self.addEventListener("fetch", (event) => {
-  // We only want to call event.respondWith() if this is a navigation request
-  // for an HTML page.
-  if (event.request.mode === "navigate") {
-    event.respondWith(
-      (async () => {
-        try {
-                  
-          // First, try to use the navigation preload response if it's supported.
-          const preloadResponse = await event.preloadResponse;
-          if (preloadResponse) {
-            return preloadResponse;
-          }
-
-          // Always try the network first.
-          const networkResponse = await fetch(event.request);
+self.addEventListener('activate', function(e) {
+  console.log('[ServiceWorker] Activate');
+  return self.clients.claim();
+});
+self.addEventListener('fetch', function (event) {
+  event.respondWith(
+    caches.open(CACHE_NAME).then(function (cache) {
+      return cache.match(event.request).then(function (response) {
+        var fetchPromise = fetch(event.request).then(function (networkResponse) {
+          cache.put(event.request, networkResponse.clone());
           return networkResponse;
-        } catch (error) {
-          // catch is only triggered if an exception is thrown, which is likely
-          // due to a network error.
-          // If fetch() returns a valid HTTP response with a response code in
-          // the 4xx or 5xx range, the catch() will NOT be called.
-          console.log("Fetch failed; returning cached page instead.", error);
-
-          const cache = await caches.open(CACHE_NAME);
-          if (event.request.url.includes(START_URL)) {
-            return await cache.match(START_URL);
-          }
-          return await cache.match(OFFLINE_URL);
-        }
-      })()
-    );
-  }
-
-  // If our if() condition is false, then this fetch handler won't intercept the
-  // request. If there are any other fetch handlers registered, they will get a
-  // chance to call event.respondWith(). If no fetch handlers call
-  // event.respondWith(), the request will be handled by the browser as if there
-  // were no service worker involvement.
+        }).catch (error=>{
+          console.log('Error fetch ',error.message);
+        });
+        return response || fetchPromise;
+      });
+    }),
+  );
 });

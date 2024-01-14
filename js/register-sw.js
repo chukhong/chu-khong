@@ -16,7 +16,7 @@
 
 'use strict';
 (function (GLOBAL) {
-  
+console.log('[load] register-sw');
   var app = {
 
   }
@@ -25,13 +25,12 @@
 
   // from sarah-clack introduce
   window.addEventListener('load', async () => {
-    var appversion = document.querySelector('#appversion')
     //console.log('-------------');
     //console.log('onload');
     if ('serviceWorker' in navigator) {
       navigator
         .serviceWorker
-        .register('./service-worker-v5.js')//, { scope: "/test-serviecWorker/" }
+        .register('./service-worker-v4.js')//, { scope: "/test-serviecWorker/" }
         .then(function (registration) {
 
 
@@ -65,8 +64,7 @@
               //registration.active.postMessage('SKIP_WAITING');
             }
             app.newVersion = res.newVersion
-            
-            appversion.innerHTML = 'version: ' + res.newVersion
+            d.id('appversion').innerHTML =  'version: ' + res.newVersion
             if (oldVersion != app.newVersion) {
 
               if (window.caches) {
@@ -88,7 +86,7 @@
           })
         })
     }
-    appversion.innerHTML = 'version: ' + localStorage.getItem('app.version')|| "1.1.1"
-
+    d.id('appversion').innerHTML = 'version: ' + localStorage.getItem('app.version')
+    
   });
 })(this)

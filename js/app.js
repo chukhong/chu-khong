@@ -66,6 +66,7 @@ require([
     "lib/user",
     
     "lib/register-sw",
+    //"lib/sw-3",
     
     "lib/app-installer",
     "lib/idb-keyval-iife",
