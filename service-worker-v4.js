@@ -7,8 +7,12 @@ const START_URL = "index.html";
 const OFFLINE_URL = "index.html";
 var list1 = ["index.html","index.html"]
 var listCache = [
-
-  ]
+  "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap",
+  "https://accounts.google.com/gsi/client",
+  "https://apis.google.com/js/api.js",
+  
+  "/chu-khong/",
+]
 importScripts("/chu-khong/js/static/listCache2.js");
 // listCache = listCache.concat(["/chu-khong/cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.min.js",
 // "/chu-khong/cdn.jsdelivr.net/jquery/1.11.1/jquery.min.js",
@@ -23,18 +27,18 @@ importScripts("/chu-khong/js/static/listCache2.js");
 // "/chu-khong/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2"
 // ])
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
-workbox.setConfig({debug: false});
-workbox.core.setCacheNameDetails({
-  prefix: 'offline',
-  suffix: '',
-  precache: 'precache',
-  runtime: 'runtime-name'
-});
+// importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+// workbox.setConfig({debug: false});
+// workbox.core.setCacheNameDetails({
+//   prefix: 'offline',
+//   suffix: '',
+//   precache: 'precache',
+//   runtime: 'runtime-name'
+// });
 
 self.__precacheManifest = [].concat(listCache || []);
 //self.__precacheManifest = [].concat( []);
-workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+// workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 //console.log(listCache);
 self.addEventListener('install', event => {

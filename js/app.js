@@ -45,7 +45,7 @@ require([
     "ace/ext/searchbox",
     "lib/app-toast",
     "lib/bar-main",
-    //"lib/g-drive-script",
+    "lib/g-drive-script",
     "lib/bar-left-side",
     "lib/bar-mini",
     "lib/bar-expand",
@@ -54,10 +54,8 @@ require([
     "lib/dialog-users-translate",
     "lib/fns",
 
-    // "lib/ace.c9.io.demo.test",
-    //"ace/build/src/ace",
+   
     "ace/editor",
-    // "ace/ext/options",
     "lib/setting",
     "lib/dialog-result-search-word",
     "lib/startdict/d",
@@ -66,7 +64,6 @@ require([
     "lib/user",
     
     "lib/register-sw",
-    //"lib/sw-3",
     
     "lib/app-installer",
     "lib/idb-keyval-iife",
@@ -80,7 +77,29 @@ require([
     window.editor = ace.edit('id-editor');
     //var {d} = require("lib/startdict/d")
     require("lib/startdict/d")
-    
+    // offline-precache
+
+    var listCache = [
+        "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap",
+        "https://accounts.google.com/gsi/client",
+        "https://apis.google.com/js/api.js",
+        
+        "/chu-khong/",
+      ]
+    // const myRequest = new Request("/chu-khong/js/static/listCache2.js");
+    // fetch(myRequest)
+    // .then((response) => response.text())
+    // .then(res=>{
+    //     eval(res);
+    //     console.log(listCache);
+    //     caches.open('offline-precache')
+        
+    //     .then(async function (cache) {
+    //         console.log(cache);
+    //         ache.addAll(listCache);
+    //     });
+    // })
+
 
     
     var {app} = require('lib/file-system-apis');
@@ -102,32 +121,6 @@ require([
     var {dialogRename} = require("lib/dialog-rename")
     
     window.app = app
-
-
-    /********************************/
-    /****Configuring the editor******/
-    /********************************/
-
-    // pass options to ace.edit
-    // ace.edit(editor, {
-    //     mode: "ace/mode/markdown",
-    //     selectionStyle: "text"
-    // })
-    // // use setOptions method to set several options at once
-    // editor.setOptions({
-    //     autoScrollEditorIntoView: true,
-    //     copyWithEmptySelection: true,
-    // });
-    // // use setOptions method
-    // editor.setOption("mergeUndoDeltas", "always");
-
-    // // some options are also available as methods e.g. 
-    //editor.setTheme("ace/theme/monokai");
-
-    // to get the value of the option use
-    //editor.getOption("optionName");
-
-    //editor.session.setMode("ace/mode/markdown");
 
     var refs ={}
     
@@ -163,11 +156,7 @@ require([
     appInstaller(d,editor);
 
     
-    //window.addEventListener('load',(event)=>{
-        // d.autoLoadId()
-        // d.event = event
-        // d.loadFns(event)
-    //)
+
     window.Editor = editor;
 
 });

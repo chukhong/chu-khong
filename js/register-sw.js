@@ -25,6 +25,7 @@ console.log('[load] register-sw');
 
   // from sarah-clack introduce
   window.addEventListener('load', async () => {
+    var appversion = document.querySelector('#appversion')
     //console.log('-------------');
     //console.log('onload');
     if ('serviceWorker' in navigator) {
@@ -64,7 +65,7 @@ console.log('[load] register-sw');
               //registration.active.postMessage('SKIP_WAITING');
             }
             app.newVersion = res.newVersion
-            d.id('appversion').innerHTML =  'version: ' + res.newVersion
+            appversion.innerHTML =  'version: ' + res.newVersion
             if (oldVersion != app.newVersion) {
 
               if (window.caches) {
@@ -86,7 +87,7 @@ console.log('[load] register-sw');
           })
         })
     }
-    d.id('appversion').innerHTML = 'version: ' + localStorage.getItem('app.version')
+    appversion.innerHTML = 'version: ' + localStorage.getItem('app.version')
     
   });
 })(this)
