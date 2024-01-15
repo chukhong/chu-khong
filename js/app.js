@@ -79,26 +79,6 @@ require([
     require("lib/startdict/d")
     // offline-precache
 
-    var listCache = [
-        "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap",
-        "https://accounts.google.com/gsi/client",
-        "https://apis.google.com/js/api.js",
-        
-        "/chu-khong/",
-      ]
-    // const myRequest = new Request("/chu-khong/js/static/listCache2.js");
-    // fetch(myRequest)
-    // .then((response) => response.text())
-    // .then(res=>{
-    //     eval(res);
-    //     console.log(listCache);
-    //     caches.open('offline-precache')
-        
-    //     .then(async function (cache) {
-    //         console.log(cache);
-    //         ache.addAll(listCache);
-    //     });
-    // })
 
 
     
