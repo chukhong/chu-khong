@@ -76,6 +76,7 @@ self.addEventListener('fetch', function (event) {
               try{                
                 var igonelist = ['plugin/','version.json',
                 '?list=chu-khong/js2/plugin',
+                '/Dicts/',
                 'script.google.com'],
                 {url} = event.request
                 if(!igonelist.find(i=>{return url.indexOf(i)!=-1}))

@@ -48,6 +48,7 @@ require([
     'lib/sw-register',
     'lib/bar-main',
     'lib/dialog-select-word',
+    'lib/dialog-phien-am',
     'lib/bar-selected',
     'lib/app-toast',
     'lib/bar-mini',
