@@ -56,7 +56,7 @@ const dom = ["div", { class: "menu"},
         ['button',{
             'class':'btn btn-outline-dark d-sm-none',
             'type':'button',
-            'data-cmd-as':'addWord',
+            // 'data-cmd-as':'addWord',
             'data-toggle':'modal-contextmenu',
             'data-target':'#dialogAddWord'
             },
@@ -75,7 +75,7 @@ const dom = ["div", { class: "menu"},
             },
             ['li',{
                     class:'btn m-0 p-0', 
-                    'data-cmd-as':"addWord",
+                    // 'data-cmd-as':"addWord",
                     'data-toggle':'modal-contextmenu',
                     'data-target':'#dialogAddWord'
                 },
