@@ -64,7 +64,7 @@ require([
     'lib/user',
     'lib/dialog-users-translate',
     'lib/dialog-rename',
-    'lib/gTranslate',
+    'lib/gtranslate',
 
     ], function(ace) {
     
