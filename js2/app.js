@@ -45,7 +45,7 @@ require([
     'ace/ace', 
     'ace/ext/searchbox',
     'lib/startdict/d',
-    //'lib/sw-register',
+    'lib/sw-register',
     'lib/bar-main',
     'lib/dialog-select-word',
     'lib/dialog-phien-am',
