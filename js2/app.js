@@ -63,6 +63,9 @@ require([
     'lib/dialog-add-word',
     'lib/user',
     'lib/dialog-users-translate',
+    'lib/dialog-rename',
+    'lib/gTranslate',
+
     ], function(ace) {
     
     // window.editor = ace.edit('id-editor')

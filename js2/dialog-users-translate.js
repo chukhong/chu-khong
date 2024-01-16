@@ -1,4 +1,7 @@
 "use strict";
+window.cacheInorderTranslate = null;
+window.cacheAffterInorderTranslate = null;
+
 (function(){
 
 require("tablednd");
@@ -7,28 +10,29 @@ require("tablednd");
 var buildDom = require("ace/lib/dom").buildDom;
 
 
+
 // console.log(url);
 function builtModal(){
     var dom =['div',{
-                'class':'modal',
-                'id':'dialogUsersTranslate',
-                'tabindex':"-1",
-                'role':"dialog",
-                'aria-labelledby':"dialogSystemWordsTitle",
-                'aria-hidden':"true"
+                // 'class':'modal',
+                // 'id':'dialogUsersTranslate',
+                // 'tabindex':"-1",
+                // 'role':"dialog",
+                // 'aria-labelledby':"dialogSystemWordsTitle",
+                // 'aria-hidden':"true"
             },
             ['form',{id:'formPriority','action':'#',method:'post'},
-                ['div',{class:"modal-dialog modal-lg",id:"dialogFormPriority", role:"document"},
-                    ['div',{class:"modal-content bd-gray-900"},
-                        ['div',{class:"modal-header navbar navbar-expand-lg"},
-                             ['h1',{class:"modal-title mt-3", id:"titleDialogSystemWords"},
-                             'In order to translate'
-                             ],
-                             ['h1',{class:"modal-title spinner mx-3","style":"width:30px;height:30px",id:"spinnerFormPriority"},
-                             ''
-                             ],
-                            ['button',{'type':"button",'class':"btn-secondary-close",'data-bs-dismiss':"modal", 'aria-label':"Close"}],
-                        ],
+                // ['div',{class:"modal-dialog modal-lg",id:"dialogFormPriority", role:"document"},
+                //     ['div',{class:"modal-content bd-gray-900"},
+                        // ['div',{class:"modal-header navbar navbar-expand-lg"},
+                        //     //  ['h1',{class:"modal-title mt-3", id:"titleDialogSystemWords"},
+                        //     //  'In order to translate'
+                        //     //  ],
+                        //     //  ['h1',{class:"modal-title spinner mx-3","style":"width:30px;height:30px",id:"spinnerFormPriority"},
+                        //     //  ''
+                        //     //  ],
+                        //     // ['button',{'type':"button",'class':"btn-secondary-close",'data-bs-dismiss':"modal", 'aria-label':"Close"}],
+                        // ],
                         ['div',{class:"modal-body", id:"bodyDialogSystemWords"},
                         
                             ["table", 
@@ -64,8 +68,8 @@ function builtModal(){
                             ['button',{'type':"submit",'class':"btn btn-primary",'aria-label':"Save",'data-bs-dismiss':"modal"},'Save'],
                             ['button',{'type':"button",'class':"btn btn-secondary",'data-bs-dismiss':"modal", 'aria-label':"Close"},'Close']
                         ],
-                    ],
-                ]
+                //     ],
+                // ]
             ]
     ]
     // var old = $('#modals2')[0].innerHTML
@@ -73,13 +77,30 @@ function builtModal(){
     // old += $('#modals2')[0].innerHTML
     // $('#modals2')[0].innerHTML = old
 
-    var container = document.querySelector('body')
+    //var container = document.querySelector('body')
+    var container = document.querySelector('#accordionBodyInorderTranslate')
     var optionsPanel = document.createElement("div");
     buildDom(dom, optionsPanel, {})
     container.insertBefore(optionsPanel, container.firstChild);
 
 }
-      
+var buildTable = (data)=>{
+    return data.map((v,i)=>{
+        return  ['tr',{class:""},
+                    ['td',{"data-id":v.ID},v.NAME],
+        ]
+    })
+}
+function loadCache(data){
+    spinnerFormPriority.style.visibility = "hidden";
+    var $table = $('#table')
+    var dom = buildTable(data)
+    //console.log(dom)
+    var $tbody = document.querySelector('#table tbody')
+        $tbody.innerHTML=''
+    buildDom(dom, $tbody, {})
+    $table.tableDnD()
+}
 var dialogUsersTranslate = function(editor) {
     builtModal()
     
@@ -89,22 +110,19 @@ var dialogUsersTranslate = function(editor) {
     //ajaxRequest()
     //$('#table').tableDnD()
   
-
-    var buildTable = (data)=>{
-        return data.map((v,i)=>{
-            return  ['tr',{class:""},
-                        ['td',{"data-id":v.ID},v.NAME],
-            ]
-        })
-    }
     
-    $('#dialogUsersTranslate').on('shown.bs.modal', initShow)
+    //$('#dialogUsersTranslate').on('shown.bs.modal', initShow)
+    $('#dialogAddWord').on('shown.bs.modal', initShow)
     function initShow (){
+        
         var spinnerFormPriority = document.getElementById("spinnerFormPriority")
         spinnerFormPriority.style.visibility = "visible";
-        var $tbody = document.querySelector('#table tbody')
-        $tbody.innerHTML=''
-
+        
+        if(cacheInorderTranslate!=null){
+            loadCache(cacheInorderTranslate)
+            return
+        }
+        
         var url = script_url + "?q="+JSON.stringify({
             SHEETNAME: 'users',
             action:"filter",
@@ -119,7 +137,7 @@ var dialogUsersTranslate = function(editor) {
         })
         .then(res=>res.json())
         .then(listUsers=>{
-            console.log(listUsers);
+            //console.log(listUsers);
             // params.success(res.data)
             // $('#table').bootstrapTable('hideColumn', 'EMAIL')
             // $('#table').bootstrapTable('hideColumn', 'ID')
@@ -137,7 +155,8 @@ var dialogUsersTranslate = function(editor) {
             })
             .then(res=>res.json())
             .then(listPriority=>{
-                spinnerFormPriority.style.visibility = "hidden";
+
+                
 
                 function joinPriorityToTableA(a,b){
                     return a.map(ia=>{
@@ -152,13 +171,11 @@ var dialogUsersTranslate = function(editor) {
                 var data =  joinPriorityToTableA(listUsers.data, listPriority.data)
                 data.sort((a,b)=>{return a.PRIORITY-b.PRIORITY})
             //console.log(data);
+                cacheInorderTranslate = data
+
+                loadCache(cacheInorderTranslate)
+
                 
-                var $table = $('#table')
-                var dom = buildTable(data)
-                //console.log(dom)
-                
-                buildDom(dom, $tbody, {})
-                $table.tableDnD()
             })
             
         })
@@ -172,7 +189,8 @@ var dialogUsersTranslate = function(editor) {
                 //console.log(td.dataset.id,i)
                 var row = {USERID:USERID,USERORTHER:td.dataset.id,PRIORITY:(i+1)}
                 //data.push(row)
-                console.log(row);
+                ///console.log(row);
+                data.push(row)
                 var url = script_url + "?q="+JSON.stringify({
                         "SHEETNAME":"priority",
                         "action":"insert",
@@ -190,7 +208,15 @@ var dialogUsersTranslate = function(editor) {
                     console.log(res);
                 })
             })
-
+            cacheAffterInorderTranslate = data
+            console.log(cacheAffterInorderTranslate);
+            cacheAffterInorderTranslate.map(k=>{
+                k.USERORTHER
+                if(r = cacheInorderTranslate.find(i=>{return i.ID == k.USERORTHER})){
+                    r.PRIORITY = k.PRIORITY
+                }
+            })
+            cacheInorderTranslate.sort((a,b)=>{return a.PRIORITY-b.PRIORITY})
         })
     }
 };

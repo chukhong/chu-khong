@@ -69,8 +69,11 @@ observeDOM( document.querySelector('#my'), function(m){
    m.forEach(record => record.removedNodes.length & removedNodes.push(...record.removedNodes))
 
   //console.clear();
-  if(count==1)
-  sms.log({fn:"gtranslate",target:null,data:my.innerText}) 
+  if(count==1){
+    //alert(my.innerText)
+    //console.log('[gTranslate] ',my.innerText);
+    sms.log({fn:"gtranslate",target:null,data:my.innerText}) 
+  }
   count++
   //console.log('Added:', addedNodes, 'Removed:', removedNodes);
 });

@@ -271,6 +271,8 @@ commands = function (app, refs) {
 						// console.log('textSelected '+textSelected);
 						// console.log('textSelected '+textSelected.length);
 						// console.log('editor.getCopyText() '+editor.getCopyText());
+						if(!textSelected)
+							textSelected = editor.getSelectedText()
 						if (textSelected.length == 1 || textSelected.length == 0) {
 							textSelected = getTextPreviousLine(editor)
 							// console.log('getTextPreviousLine(editor) '+textSelected);
@@ -311,6 +313,10 @@ commands = function (app, refs) {
 					var i, k, c, w = [], old, dom, ws, findKey //與
 					if (fns.nextCMD.data == null) {
 						fns.nextCMD.target = "[data-cmd-as='keyboardHanNom']"
+
+						if(!textSelected)
+							textSelected = editor.getSelectedText()
+
 						if (textSelected.length == 1 || textSelected.length == 0)
 							textSelected = getTextPreviousLine(editor)
 						ws = textSelected.split(/\s+/)
@@ -344,6 +350,10 @@ commands = function (app, refs) {
 				keyboardPhiemAm: () => {
 					var i, k, c, w = [], old //與
 					var getLine = false
+
+					if(!textSelected)
+						textSelected = editor.getSelectedText()
+
 					if (textSelected.length == 0) {
 						textSelected = getTextPreviousLine(editor)
 						getLine = true
@@ -372,6 +382,9 @@ commands = function (app, refs) {
 					}
 				},
 				keyboardGianThe: () => {
+					if(!textSelected)
+						textSelected = editor.getSelectedText()
+
 					var i, k, c, old //觇覘
 					old = textSelected
 					for (i = 0; i < textSelected.length; i++) {
@@ -386,6 +399,9 @@ commands = function (app, refs) {
 					}
 				},
 				keyboardPhonThe: () => {
+					if(!textSelected)
+						textSelected = editor.getSelectedText()
+
 					var i, k, c, old //觇覘
 					old = textSelected
 					for (i = 0; i < textSelected.length; i++) {

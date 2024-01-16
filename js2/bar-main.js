@@ -56,9 +56,9 @@ const dom = ["div", { class: "menu"},
         ['button',{
             'class':'btn btn-outline-dark d-sm-none',
             'type':'button',
-            'data-cmd-as':'translateOffline',
+            'data-cmd-as':'addWord',
             'data-toggle':'modal-contextmenu',
-            'data-target':'#dialogUsersTranslate'
+            'data-target':'#dialogAddWord'
             },
             ["i",{class:"material-icons"},"translate"]
         ],
@@ -75,9 +75,9 @@ const dom = ["div", { class: "menu"},
             },
             ['li',{
                     class:'btn m-0 p-0', 
-                    'data-cmd-as':"translateOffline",
+                    'data-cmd-as':"addWord",
                     'data-toggle':'modal-contextmenu',
-                    'data-target':'#dialogUsersTranslate'
+                    'data-target':'#dialogAddWord'
                 },
                 ["button", {class:'btn btn-outline-dark',
 

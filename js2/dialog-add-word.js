@@ -33,35 +33,84 @@ function builtModal(){
                 ['div',{class:"modal-dialog modal-lg", role:"document"},
                     ['div',{class:"modal-content bd-gray-900"},
                         ['div',{class:"modal-header navbar navbar-expand-lg"},
-                            ['h1',{class:"modal-title mt-3", id:"titleDialogAddWord"},'Add Word'],
-                            ['h1',{class:"modal-title spinner mx-3","style":"width:30px;height:30px", id:"spinnerDialogAddWord" },''],
-                            
+                            // ['div',{class:"modal-title mt-3", id:"titleDialogAddWord"},'Add Word'],
+                            ["h2",{"class":"modal-title mt-3 accordion-header","id":"headingOne"},
+                                ["button",{
+                                        "class":"accordion-button",
+                                        "type":"button",
+                                        "data-bs-toggle":"collapse",
+                                        "data-bs-target":"#collapseOne",
+                                        "aria-expanded":"true",
+                                        "aria-controls":"collapseOne"
+                                    },
+                                    "Add Word"
+                                ],
+                                ['div',{class:"modal-title spinner mx-3","style":"width:30px;height:30px", id:"spinnerDialogAddWord" },''],
+
+                            ],
+                            ["h2",{"class":"modal-title px-3 mt-3 accordion-header","id":"headingTow"},
+                                ["button",{
+                                        "class":"accordion-button",
+                                        "type":"button",
+                                        "data-bs-toggle":"collapse",
+                                        "data-bs-target":"#collapseTow",
+                                        "aria-expanded":"false",
+                                        "aria-controls":"collapseOne"
+                                    },
+                                    "Inorder Translate"
+                                ],
+                                ['div',{class:"modal-title spinner mx-3","style":"width:30px;height:30px",id:"spinnerFormPriority"},''],
+                            ],
                             ['button',{'type':"button",'class':"btn-close text-bg-info",'data-bs-dismiss':"modal", 'aria-label':"Close"}],
                         ],
                         ['div',{class:"modal-body", id:"bodyDialogAddWord"},
-                            ['div',{class:"mb-3 row"},
-                                ['label',{class:"col-sm-3 col-form-label",'for':'key-word'},'Key Word'],
-                                ['div',{class:"col-sm-7"},
-                                    ['input',{class:"form-control",'type':'text',id:'key',name:'key','placeholder':'Key Word'}],
+                            ["div",{"class":"accordion","id":"accordionExample"},
+                                ["div",{"class":"accordion-item"},
+                                    ["div",{
+                                            "id":"collapseOne",
+                                            "class":"accordion-collapse collapse show",
+                                            "aria-labelledby":"headingOne",
+                                            "data-bs-parent":"#accordionExample"
+                                        },
+                                        ["div",{"class":"accordion-body"},
+                                            ['div',{class:"mb-3 row"},
+                                                ['label',{class:"col-sm-3 col-form-label",'for':'key-word'},'Key Word'],
+                                                ['div',{class:"col-sm-7"},
+                                                    ['input',{class:"form-control",'type':'text',id:'key',name:'key','placeholder':'Key Word'}],
+                                                ],
+                                            ],
+                                            ['div',{class:"mb-3 row"},
+                                                ['label',{class:"col-sm-3 col-form-label",'for':'aliases'},'Aliases Word'],
+                                                ['div',{class:"col-sm-7"},
+                                                    ['input',{class:"form-control",'type':'text',id:'aliases',name:'aliases','placeholder':'Aliases Word'}],
+                                                ],                              
+                                            ],
+                                            ['input',{class:"form-control",'type':'hidden',id:'shortMeaning',name:'shortMeaning','placeholder':'Aliases Word'}],
+                                            builtSpecialWord(),
+                                            ['div',{class:"mb-3"},
+                                                ['label',{class:"form-label",'for':'full-meaning'},'Full meaning'],
+                                                ['textarea',{class:"form-control",'row':'3',id:'fullMeaning',name:'fullMeaning','placeholder':'Full meaning'}],
+                                            ],
+                                            ['div',{class:"modal-footer"},
+                                                ['button',{'type':"submit",'class':"btn btn-primary",'aria-label':"Save",'data-bs-dismiss':"modal"},'Save'],
+                                                ['button',{'type':"button",'class':"btn btn-secondary",'data-bs-dismiss':"modal", 'aria-label':"Close"},'Close']
+                                            ],
+
+                                        ],
+                                    ],
+                                    
                                 ],
-                            ],
-                            ['div',{class:"mb-3 row"},
-                                ['label',{class:"col-sm-3 col-form-label",'for':'aliases'},'Aliases Word'],
-                                ['div',{class:"col-sm-7"},
-                                    ['input',{class:"form-control",'type':'text',id:'aliases',name:'aliases','placeholder':'Aliases Word'}],
-                                ],                              
-                            ],
-                            ['input',{class:"form-control",'type':'hidden',id:'shortMeaning',name:'shortMeaning','placeholder':'Aliases Word'}],
-                            builtSpecialWord(),
-                            ['div',{class:"mb-3"},
-                                ['label',{class:"form-label",'for':'full-meaning'},'Full meaning'],
-                                ['textarea',{class:"form-control",'row':'3',id:'fullMeaning',name:'fullMeaning','placeholder':'Full meaning'}],
+                                ["div",{
+                                    "id":"collapseTow",
+                                    "class":"accordion-collapse collapse",
+                                    "aria-labelledby":"headingTow",
+                                    "data-bs-parent":"#accordionExample"
+                                    },
+                                    ["div",{"class":"accordion-body",id:'accordionBodyInorderTranslate'},'']
+                                ]
                             ],
                         ],
-                        ['div',{class:"modal-footer"},
-                            ['button',{'type':"submit",'class':"btn btn-primary",'aria-label':"Save",'data-bs-dismiss':"modal"},'Save'],
-                            ['button',{'type':"button",'class':"btn btn-secondary",'data-bs-dismiss':"modal", 'aria-label':"Close"},'Close']
-                        ],
+                       
                     ],
                 ]
             ]
@@ -81,7 +130,8 @@ function builtModal(){
 
 var dialogAddWord = function(editor) {
     builtModal()
-
+    //editor.getSelectedText()
+    require('lib/dialog-users-translate')
     var
     fns={
         _getUserData:(key)=>{
@@ -138,7 +188,10 @@ var dialogAddWord = function(editor) {
             })
         },
         _getUserDataV2(key){
-
+            if(!navigator.onLine){
+                app.toast.message('Alert','internet is off').show()
+                return
+            }
             var spinnerDialogAddWord = document.getElementById("spinnerDialogAddWord")
             spinnerDialogAddWord.style.visibility = "visible";
 
@@ -178,13 +231,15 @@ var dialogAddWord = function(editor) {
                 return
             }
 
-            fns._getUserDataV2(editor.getCopyText())
+            //fns._getUserDataV2(editor.getCopyText())
+            fns._getUserDataV2(editor.getSelectedText())
             
             //clean input
             $('#formAddWord input,textarea').val('')
 
             $('#dialogAddWord').modal('show')
-            $('#key').val(editor.getCopyText())
+            //$('#key').val(editor.getCopyText())
+            $('#key').val(editor.getSelectedText())
         }
     }
     $(document).on("click", "[data-cmd-as]", (function(event) {
@@ -291,7 +346,10 @@ var dialogAddWord = function(editor) {
         })
     }
     d.init(initEventDialogAddWord)
-
+    
+    $('#dialogAddWord').on('shown.bs.modal', ()=>{
+        fns.addWord()
+    })
 };
 
 // (function(){
