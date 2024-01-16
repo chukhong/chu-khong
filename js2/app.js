@@ -45,7 +45,7 @@ require([
     'ace/ace', 
     'ace/ext/searchbox',
     'lib/startdict/d',
-    'lib/sw-register',
+    //'lib/sw-register',
     'lib/bar-main',
     'lib/dialog-select-word',
     'lib/dialog-phien-am',
@@ -62,6 +62,7 @@ require([
     'lib/dialog-bo',
     'lib/dialog-add-word',
     'lib/user',
+    'lib/dialog-users-translate',
     ], function(ace) {
     
     // window.editor = ace.edit('id-editor')

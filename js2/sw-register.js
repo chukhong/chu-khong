@@ -25,6 +25,7 @@ console.log('[load] register-sw');
 
   // from sarah-clack introduce
   window.addEventListener('load', async () => {
+    //d.id('appversion').innerHTML
     var appversion = document.querySelector('#appversion')
     //console.log('-------------');
     //console.log('onload');

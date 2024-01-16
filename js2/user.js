@@ -1,6 +1,6 @@
 "use strict";
 (function(GLOBAL) {
-require("lib/dialog-setting")
+
 
 var buildDom = require("ace/lib/dom").buildDom;
 
@@ -42,7 +42,7 @@ function builtModal() {
 
             ],
             ["div", {
-                    "class": "menu list-group list-group-flush scrollarea"
+                    "class": "offcanvas-body menu list-group list-group-flush scrollarea"
                     //offcanvas-body 
                 },
                 // ["div", {},
@@ -50,11 +50,12 @@ function builtModal() {
                 // ],
                 ["div", {id:'buttonDiv',class:'list-group-item py-3 lh-sm'}],
 
-                ["button", {
-                    class:'list-group-item py-3 lh-sm',
-                    'data-bs-toggle':"modal",
-                    'data-bs-target':"#dialogSetting",
+                ["div", {
+                    class:'',
+                    // 'data-bs-toggle':"modal",
+                    // 'data-bs-target':"#dialogSetting",
                 }, ["i",{class:"material-icons"},"color_lens"],['span',{class:'mx-3'},"Setting"]],
+                ["div", {id:'settingPlace',class:'px-3 py-3'}],
                 
                 // ["button", {
                 //     class:'list-group-item py-3 lh-sm',
@@ -265,6 +266,7 @@ function initUser(){
 }
 var basicFN = function(editor) {
     builtModal()
+    require("lib/dialog-setting")
     //console.log('d.init(initUser)');
     //d.init(initUser)
     
@@ -273,7 +275,8 @@ var basicFN = function(editor) {
     // })
     initUser()
     //console.log('[user] load');
-    d.id('appversion').innerHTML = 'version: ' + localStorage.getItem('app.version')
+    var version = localStorage.getItem('app.version')||'1.1.1'
+    d.id('appversion').innerHTML = 'Chu Khong Version: ' + version
 };
 
 // (function() {

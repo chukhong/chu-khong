@@ -27,6 +27,8 @@ var ace = require("ace/ace")
 window.editor = ace.edit('id-editor');
 window.editor.focus();
 
+// var session = window.editor.getSession();
+// session.setUseWrapMode(true);
 
 var buildDom = require("ace/lib/dom").buildDom;
 const dom = ["div", { class: "menu"},

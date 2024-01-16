@@ -93,56 +93,64 @@ var setting = function(editor) {
     //     }
     // }})
 
-    var optionsPanelContainer = document.getElementById("bodyDialogSetting");
+    //var optionsPanelContainer = document.getElementById("bodyDialogSetting");
+    var optionsPanelContainer = document.getElementById("settingPlace");
     optionsPanel.render();
 
-    optionsPanel.setOption("fontSize","15");
+    optionsPanel.setOption("fontSize","18");
     optionsPanel.render();
 
     optionsPanelContainer.insertBefore(optionsPanel.container, optionsPanelContainer.firstChild);
     optionsPanel.on("setOption", function(e) {
-        util.saveOption(e.name, e.value);
+        // console.log(e);
+        // e.value = e.value===''?false:e.value
+        util.saveOption('ace.'+e.name, e.value);
     });
-
-    for (var i in optionsPanel.options) {
-        var value = util.getOption(i);
-        
-        if (value != undefined) {
-            if ((i == "mode" || i == "theme") && !/[/]/.test(value))
-                value = "ace/" + i + "/" + value;
-            optionsPanel.setOption(i, value);
-            editor.setOption(i,value);
-            //console.log(i+' '+value);
-        }
-    }
-
-    var 
-    i= 0,
-    l= localStorage.length,
-    escapeOption = ['listDict']
-    try{
-
-        for(var k in localStorage){
-            if(i<l && escapeOption.indexOf(k)==-1){
-                var v = localStorage[k]
-                
-                optionsPanel.setOption(k,v)
-                editor.setOption(k,v)
-                
-                //console.log(k,v);
+    
+    var _defaultOptions = [
+        {name:'fontSize',value:'18'},
+        {name:'theme',value:'monokai'},
+        {name:'wrap',value:'free'},
+        {name:'indentedSoftWrap',value:false}
+    ]
+    if(localStorage.getItem('app.setttingDefault')==null){
+        _defaultOptions.map(k=>{
+            var i = k.name
+            var value = k.value
+            //console.log('[_defaultOptions] ',i,value);
+            if (value != undefined) {
+                if ((i == "mode" || i == "theme") && !/[/]/.test(value))
+                    value = "ace/" + i + "/" + value;
+                optionsPanel.setOption(i, value);
+                editor.setOption(i,value);
             }
-            i++
-        }
-    }catch(err){
-        console.log(err)
+        })
+        localStorage.setItem('app.setttingDefault',true)
     }
-    editor.setOption("theme",util.getOption("theme") || "ace/theme/monokai");
-    editor.setOption("fontSize",editor.getOption('fontSize') || "15px");
+
+    //try{
+        for (var i in optionsPanel.options) {
+            var k = 'ace.'+i
+            var value = util.getOption(k);
+            //var value = util.getOption(i);
+            value = value===''?false:value
+            if (value != undefined) {
+                //console.log('[setting] ',i,value,!/[/]/.test(value));
+                if ((i == "mode" || i == "theme") && !/[/]/.test(value))
+                    value = "ace/" + i + "/" + value;
+                optionsPanel.setOption(i, value);
+                editor.setOption(i,value);
+            }
+        }
+    // }catch(error){
+    //     console.log(error.message);
+    // }
+    
     
     optionsPanel.render();
 
     var r = document.querySelector(':root');
-    r.style.setProperty('--app-font-size', editor.getOption('fontSize')+'px'||'15px');
+    r.style.setProperty('--app-font-size', editor.getOption('fontSize')+'px'||'18px');
 
     
     //optionsPanel.setOption("theme", util.getOption("theme") || "ace/theme/monokai")
