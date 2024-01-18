@@ -247,7 +247,8 @@ function initUser(){
     if(!navigator.onLine){
         return
     }
-
+    if(!google)
+        location.reload();
     if(token==''){
         google.accounts.id.initialize({
             client_id: "563587575029-89224il8qt9bc2i5d3f15fucn6nutv0t.apps.googleusercontent.com",
