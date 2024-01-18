@@ -23,6 +23,9 @@ const dom = ["div", { class: "menu" },
             'class':'btn btn-outline-dark d-sm-none',
             'type':'button',
             'data-cmd-as':'search',
+            // 'data-toggle':'swap',
+            // 'data-target':'#btnSwapSearch',
+            'id':'btnSwapSearch'
             },
             ["i",{class:"material-icons"},"search"]
         ],
@@ -37,40 +40,57 @@ const dom = ["div", { class: "menu" },
                 class:'d-sm-position-absolute dropdown-menu d-sm-inline-block m-0 p-0',
             },
             ['li',{
-                    class:'btn m-0 p-0 start-0 top-0', 
+                    class:'btn m-0 p-0 start-0 top-0 w-100', 
                     'data-cmd-as':"search"
                 },
-                ["button", {class:'btn btn-outline-dark'}, 
-                ["i",{class:"material-icons"},"search"]],
-                ["span",{class:'d-sm-none'},"Search content"],
+                ["button", {class:'btn btn-outline-dark w-100 text-start'}, 
+                    ["i",{class:"material-icons"},"search"],
+                    ["span",{class:'d-sm-none'},"Tìm nội dung"],
+                ],
             ],
             ['li',{
-                    class:'btn m-0 p-0 start-0 top-0', 
+                    class:'btn m-0 p-0 start-0 top-0 w-100', 
                     'data-cmd-as':"reply"
                 },
-                ["button", {class:'btn btn-outline-dark'}, 
-                ["i",{class:"material-icons"},"find_replace"]],
-                ["span",{class:'d-sm-none'},"Search & replace"],
+                ["button", {class:'btn btn-outline-dark w-100 text-start'}, 
+                    ["i",{class:"material-icons"},"find_replace"],
+                    ["span",{class:'d-sm-none'},"Tìm/Thay Thế"],
+                ],
             ],
             ['li',{
-                    class:'btn m-0 p-0 start-0 top-0', 
-                    'data-cmd-as':"searchtu",
-                    'data-bs-toggle':"offcanvas",
-                    'data-bs-target':"#dialogResultSearchWord",
+                    class:'btn m-0 p-0 start-0 top-0 w-100', 
+
                 },
-                ["button", {class:'btn btn-outline-dark'}, 
-                ["i",{class:"material-icons"},"search"],["span",{},"Từ"]],
-                ["span",{class:'d-sm-none'},"Dictionaries"],
+                ["button", {
+                    "class":'btn btn-outline-dark w-100 text-start',
+                    'data-cmd-as':"searchtu",
+                    'data-toggle':'active',
+                    'data-target':'#btnSearchTu',
+                    // 'data-bs-toggle':"offcanvas",
+                    // 'data-bs-target':"#dialogResultSearchWord",
+                    'id':'btnSearchTu'
+                    }, 
+                    ["i",{class:"material-icons"},"search"],
+                    ["span",{class:'d-none d-sm-inline'},"Từ"],
+                    ["span",{class:'d-sm-none px-1'},"Tra từ điển"],
+                ],
+                    
             ],
             ['li',{
-                    class:'btn m-0 p-0 start-0 top-0', 
+                    class:'btn m-0 p-0 start-0 top-0 w-100', 
                     'data-bs-toggle':"modal",
                     'data-bs-target':"#dialogSystemWords",
-                    'data-cmd-as':'systemWord'
                 },
-                ["button", {class:'btn btn-outline-dark'}, 
-                ['i',{class:'material-icons'},"search"],["span",{},"Bộ"]],
-                ["span",{class:'d-sm-none'},"Systems word"],
+                ["button",{
+                    class:'btn btn-outline-dark w-100 text-start',
+                    'data-toggle':'swap',
+                    'data-target':'#btnSwapSearch',
+                    'data-cmd-as':'systemWord'
+                    }, 
+                    ['i',{class:'material-icons'},"search"],
+                    ["span",{class:'d-none d-sm-inline'},"Bộ"],
+                    ["span",{class:'d-sm-none px-1'},"Tra Bộ"],
+                ],
             ]
         ]
     ],
@@ -94,6 +114,13 @@ const dom = ["div", { class: "menu" },
 var barMini = function(app,editor,refs) {
     var parentNode = document.getElementById("minitoolbar")
     buildDom(dom,parentNode,refs)
+    // $("[data-toggle='swap']").on("click", function (e) {
+    //     e.preventDefault();
+    //     var targetModal = $(this).data('target');
+    //     $(targetModal).html($(this).html())
+    //     $(targetModal).data('cmdAs',$(this).data('cmdAs'))
+    //     console.log(targetModal);
+    // })
 };
 
 // (function(){

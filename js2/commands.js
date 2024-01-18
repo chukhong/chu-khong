@@ -88,18 +88,20 @@ commands = function (app, refs) {
 				reply: () => {
 					editor.execCommand('replace')
 				},
-				searchWord: () => {
-					//#bodyDialogResultSearchWord
-					$("#wordSelected").html(editor.getCopyText())
-					$("#dialogResultSearchWord").modal("show")
-				},
-				searchtu: () => {
+				searchtu: (event) => {
 					// var si = $('#search-input')[0]
 					// si.value = editor.getCopyText()
 					// $('#btn-search-word').on('click')
 					// $('#btn-search-word')[0].click()
+					//if(event.target !== this) return false;
+					// console.log(event);
+					// if (event.target.matches('li.btn')) return
+					// $(this).toggleClass('active')
 					searchInput.value = editor.getCopyText()
+					if(searchInput.value.length==0)
+						return
 					btnSearchWord.click()
+					$('#dialogResultSearchWord').offcanvas('show')
 					//console.log('new style');
 					//si.parentNode.submit()
 				},
@@ -459,6 +461,8 @@ commands = function (app, refs) {
 			textSelected = text
 			if (text.length)
 				console.log(text);
+			if($('[class~=autoclick]')[0])
+				$('[class~=autoclick]').click()
 		})
 
 		// mouse right
@@ -468,6 +472,12 @@ commands = function (app, refs) {
 			var targetModal = $(this).data('target');
 			//console.log($(this).data('target'));
 			$(targetModal).modal("show");
+		})
+		$("[data-toggle='active']").on("contextmenu", function (e) {
+			
+			var target = $(this).data("target");
+			$(target).toggleClass('autoclick')
+			e.preventDefault();
 		})
 		$("[data-toggle='modal-left-click']").on("click", function (e) {
 			e.preventDefault();

@@ -20,9 +20,9 @@ function builtModal(){
                         ['button',{'type':"button",'class':"btn-secondary-close",'data-bs-dismiss':"modal", 'aria-label':"Close"}],
                     ],
                     ['div',{class:"modal-body", id:"bodyDialogSystemWords"}],
-                    ['div',{class:"modal-footer"},
-                        ['button',{'type':"button",'class':"btn btn-secondary",'data-bs-dismiss':"modal", 'aria-label':"Close"},'Close']
-                    ],
+                    // ['div',{class:"modal-footer"},
+                    //     ['button',{'type':"button",'class':"btn btn-secondary",'data-bs-dismiss':"modal", 'aria-label':"Close"},'Close']
+                    // ],
                 ],
             ]
     ]
