@@ -261,8 +261,6 @@ function initUser(){
             } // customization attributes
         );
         google.accounts.id.prompt(); // also display the One Tap dialog
-    }else{
-        loadIconUser()
     }
 }
 var basicFN = function(editor) {
@@ -274,6 +272,7 @@ var basicFN = function(editor) {
     // window.addEventListener('load', function() {
     //     initUser()
     // })
+    loadIconUser()
     initUser()
     //console.log('[user] load');
     var version = localStorage.getItem('app.version')||'1.1.1'
