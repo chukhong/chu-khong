@@ -24,7 +24,7 @@
     //琢等字𠀤从此
     //玉不琢不成器 
 
-window.APIID = 'AKfycbwzX1_CCpvXniZMsSSK_JeERsdn7vrigo8SG2GxM6FXpox2OMv3w-Ex2qFdZZX59IKS'
+window.APIID = 'AKfycbzsyBWc4GsJBqj3vlTr8l0k_uZFoYV_nGbnEO_9khBgBqgAoKrs4pX6hQ9gTfQ8CeRo'
 window.script_url = "https://script.google.com/macros/s/" + APIID + "/exec";
 window.SHEETNAME = "dictionaries" 
 
