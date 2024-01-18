@@ -74,7 +74,7 @@ const dom = ["div", { class: "menu"},
                 // class:'dropdown-menu position-absolute'
             },
             ['li',{
-                    class:'btn m-0 p-0 w-100 text-start', 
+                    class:'btn m-0 p-0  text-start', 
                     'data-cmd-as':"translateOffline",
                     'data-toggle':'modal-contextmenu',
                     'data-target':'#dialogAddWord'
@@ -87,7 +87,7 @@ const dom = ["div", { class: "menu"},
                 ],
             ],
             ['li',{
-                    class:'btn m-0 p-0 w-100 text-start', 
+                    class:'btn m-0 p-0  text-start', 
                     'data-cmd-as':"gTranslate"
                 },
                 ["button", {class:'btn btn-outline-dark w-100 text-start'}, 
@@ -117,7 +117,7 @@ const dom = ["div", { class: "menu"},
                 // class:'dropdown-menu position-absolute'
             },
             ['li',{
-                    class:'btn m-0 p-0 w-100 text-start', 
+                    class:'btn m-0 p-0  text-start', 
                     'data-cmd-as':"upLowCases"
                 },
                 ["button", {class:'btn btn-outline-dark w-100 text-start'}, 
@@ -126,7 +126,7 @@ const dom = ["div", { class: "menu"},
                 ],
             ],
             ['li',{
-                    class:'btn m-0 p-0 w-100 text-start', 
+                    class:'btn m-0 p-0  text-start', 
                     'data-cmd-as':"spellcheck"
                 },
                 ["button", {class:'btn btn-outline-dark w-100 text-start'}, 
@@ -135,7 +135,7 @@ const dom = ["div", { class: "menu"},
                 ],
             ],
             ['li',{
-                    class:'btn m-0 p-0 w-100 text-start', 
+                    class:'btn m-0 p-0  text-start', 
                     'data-cmd-as':"linearWords"
                 },
                 ["button", {class:'btn btn-outline-dark w-100 text-start'}, 
@@ -165,7 +165,7 @@ const dom = ["div", { class: "menu"},
                 // class:'dropdown-menu position-absolute'
             },
             ['li',{
-                    class:'btn m-0 p-0 w-100 text-start', 
+                    class:'btn m-0 p-0  text-start', 
                     'data-cmd-as':"changeWords34"
                 },
                 ["button", {class:'position-relative btn btn-outline-dark w-100 text-start'}, 
@@ -175,7 +175,7 @@ const dom = ["div", { class: "menu"},
                 ],
             ],
             ['li',{
-                    class:'btn m-0 p-0 w-100 text-start', 
+                    class:'btn m-0 p-0  text-start', 
                     'data-cmd-as':"changeWordscua"
                 },
                 ["button", {class:'position-relative btn btn-outline-dark w-100 text-start'}, 
@@ -185,7 +185,7 @@ const dom = ["div", { class: "menu"},
                 ],
             ],
             ['li',{
-                    class:'btn m-0 p-0 w-100 text-start', 
+                    class:'btn m-0 p-0  text-start', 
                     'data-cmd-as':"changeWordsla"
                 },
                 ["button", {class:'position-relative btn btn-outline-dark w-100 text-start'}, 

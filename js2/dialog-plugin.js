@@ -45,8 +45,8 @@ var baiscFN = function(app,editor) {
         var btn = d.q('[data-target="#dialogListPlugin"]')
         btn.setAttribute('class','d-none')
     }
-    $('#dialogListPlugin')
-    .on('shown.bs.modal',()=>{
+    // $('#dialogListPlugin')
+    // .on('shown.bs.modal',()=>{
         fetch(new Request('/stardict/dirPublic/?list=chu-khong/js2/plugin'))
         .then(res=>res.text())
         .then(res=>{
@@ -54,6 +54,7 @@ var baiscFN = function(app,editor) {
             eval(res)
             console.log(listCache);
             listPlugin.innerHTML = ''
+            ulListPlugin.innerHTML = ''
             listCache.map(item=>{
                 var url = item
                 fetch(new Request(url))
@@ -65,11 +66,12 @@ var baiscFN = function(app,editor) {
                 var id = toTitleCase(item)
                 //require("lib/plugin/"+item)
                 //console.log("lib/plugin/"+item);
-                listPlugin.innerHTML += `<button type="button" onclick='${id}(this)'>${item}</button>`
+                // listPlugin.innerHTML += `<button type="button" onclick='${id}(this)'>${item}</button>`
+                ulListPlugin.innerHTML+=`<li><a class="dropdown-item" href="#" onclick='${id}(this)'>${item}</a></li>`
             })
             
         })
-    })
+    //})
 };
 baiscFN(window.app,window.editor)
 

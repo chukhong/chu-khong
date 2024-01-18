@@ -40,29 +40,29 @@ const dom = ["div", { class: "menu" },
                 class:'d-sm-position-absolute dropdown-menu d-sm-inline-block m-0 p-0',
             },
             ['li',{
-                    class:'btn m-0 p-0 start-0 top-0 w-100', 
+                    class:'btn m-0 p-0 start-0 top-0', 
                     'data-cmd-as':"search"
                 },
-                ["button", {class:'btn btn-outline-dark w-100 text-start'}, 
+                ["a", {class:'dropdown-item btn btn-outline-dark w-100 text-start'}, 
                     ["i",{class:"material-icons"},"search"],
                     ["span",{class:'d-sm-none'},"Tìm nội dung"],
                 ],
             ],
             ['li',{
-                    class:'btn m-0 p-0 start-0 top-0 w-100', 
+                    class:'btn m-0 p-0 start-0 top-0', 
                     'data-cmd-as':"reply"
                 },
-                ["button", {class:'btn btn-outline-dark w-100 text-start'}, 
+                ["a", {class:'dropdown-item btn btn-outline-dark w-100 text-start'}, 
                     ["i",{class:"material-icons"},"find_replace"],
                     ["span",{class:'d-sm-none'},"Tìm/Thay Thế"],
                 ],
             ],
             ['li',{
-                    class:'btn m-0 p-0 start-0 top-0 w-100', 
+                    class:'btn m-0 p-0 start-0 top-0', 
 
                 },
-                ["button", {
-                    "class":'btn btn-outline-dark w-100 text-start',
+                ["a", {
+                    "class":'dropdown-item btn btn-outline-dark w-100 text-start',
                     'data-cmd-as':"searchtu",
                     'data-toggle':'active',
                     'data-target':'#btnSearchTu',
@@ -77,12 +77,12 @@ const dom = ["div", { class: "menu" },
                     
             ],
             ['li',{
-                    class:'btn m-0 p-0 start-0 top-0 w-100', 
+                    class:'btn m-0 p-0 start-0 top-0', 
                     'data-bs-toggle':"modal",
                     'data-bs-target':"#dialogSystemWords",
                 },
-                ["button",{
-                    class:'btn btn-outline-dark w-100 text-start',
+                ["a",{
+                    class:'dropdown-item btn btn-outline-dark w-100 text-start',
                     'data-toggle':'swap',
                     'data-target':'#btnSwapSearch',
                     'data-cmd-as':'systemWord'
@@ -104,12 +104,33 @@ const dom = ["div", { class: "menu" },
         ref: "saveButton",
         'data-cmd-as': 'save'
     }, ["i",{class:"material-icons"},"save"]],
-   ["button", {
-        ref: "",
-        //'data-cmd-as': 'plugin'
-        'data-toggle':'modal-left-click',
-        'data-target':'#dialogListPlugin'
-    }, ["i",{class:"material-icons"},"extension"]],
+    // ["button", {
+    //     ref: "",
+    //     //'data-cmd-as': 'plugin'
+    //     'data-toggle':'modal-left-click',
+    //     'data-target':'#dialogListPlugin'
+    // }, ["i",{class:"material-icons"},"extension"]],
+    ["div",{"class":"btn-group dropup",'data-target':'#dialogListPlugin'},
+        ["button",
+            {"type":"button",
+            "class":"btn btn-secondary dropdown-toggle",
+            "data-bs-toggle":"dropdown",
+            "aria-expanded":"false"
+            },
+            ["i",{class:"material-icons"},"extension"]
+        ],
+        ["ul",{"class":"dropdown-menu",'id':'ulListPlugin'},
+            // ["li",{},
+            // ["a",{"class":"dropdown-item","href":"#"},"Action"],
+            // ],
+            // ["li",{},
+            // ["a",{"class":"dropdown-item","href":"#"},"Action two"],
+            // ],
+            // ["li",{},
+            // ["a",{"class":"dropdown-item","href":"#"},"Action three"],
+            // ],
+        ],
+    ]
 ]
 var barMini = function(app,editor,refs) {
     var parentNode = document.getElementById("minitoolbar")
