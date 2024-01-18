@@ -17,10 +17,6 @@
 'use strict';
 (function (GLOBAL) {
 console.log('[load] register-sw');
-  var app = {
-
-  }
-
   var serviceWorkerUpdate;
 
   // from sarah-clack introduce
@@ -51,6 +47,7 @@ console.log('[load] register-sw');
 
           if(!navigator.onLine)
             return;
+          console.log('[sw-regiser] load here');
           var rand = Math.floor(Math.random() * 10000) + 1;
           var url = "/chu-khong/js2/version.json?v=" + rand
           fetch(url, {
@@ -69,7 +66,8 @@ console.log('[load] register-sw');
               //registration.active.postMessage('SKIP_WAITING');
             }
             app.newVersion = res.newVersion
-            appversion.innerHTML =  'version: ' + res.newVersion
+            if(appversion)
+              appversion.innerHTML =  'Chu Khong Version: ' + res.newVersion
             if (oldVersion != app.newVersion) {
 
               if (window.caches) {

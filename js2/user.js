@@ -94,6 +94,7 @@ function builtModal() {
     container.insertBefore(optionsPanel, container.firstChild);
 
 }
+window.getCookie = getCookie
 function getCookie(cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
@@ -156,10 +157,7 @@ function handleCredentialResponse(response) {
         $('#buttonDiv').hide()
     })
     .catch(error=>{
-        // console.log(error);
-        $('#app-toast .toast-header strong').html('Error')
-        $('#app-toast .toast-body').html(error)
-        $('#app-toast').toast('show')
+        app.toast.message('Error',error.message).show()
     })
 }
 function loadIconUser(){
@@ -247,7 +245,7 @@ function initUser(){
     if(!navigator.onLine){
         return
     }
-    if(!google)
+    if(google==undefined)
         location.reload();
     if(token==''){
         google.accounts.id.initialize({
