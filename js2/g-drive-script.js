@@ -113,7 +113,6 @@ function handleSignoutClick() {
     }
     localStorage.removeItem('gdToken')
 }
-exports.handleAuthClick = handleAuthClick;
 // check for a Backup Folder in google drive
 function checkFolder() {
     gapi.client.drive.files.list({
@@ -125,6 +124,7 @@ function checkFolder() {
                 var file = files[i];
                 localStorage.setItem('parent_folder', file.id);
                 console.log('Folder Available');
+                app.toast.message('Google Device','Folder Available')
                 // get files if folder available
                 showList();
             }
@@ -132,6 +132,9 @@ function checkFolder() {
             // if folder not available then create
             createFolder();
         }
+    }).catch(error=>{
+        console.log("[Error] Google Device",error.message);
+        app.toast.message('[Error] Google Device',error.message)
     })
 }
 
@@ -167,7 +170,10 @@ function gdUpload() {
             }).then(function (response) {
                 return response.json();
             }).then(function (value) {
-                console.log(value);
+                //console.log(value);
+                editor.id = value.id
+                var updateBtn = d.q('[data-cmd-as=save]')
+                updateBtn.setAttribute('onClick', 'gdUpdate()'); 
                 // also update list on file upload
                 if(value && value.error){
                     app.toast.message('Error From Google Driver',value.error.message).show()
@@ -345,8 +351,11 @@ window.gdRenameFile = function(){
             'fileId': fileId,
             'resource': body
         });
-        request.execute(function(resp) {
-            //console.log(resp);
+        request.execute(function(value) {
+            //console.log(value);
+            editor.id = value.id
+            var updateBtn = d.q('[data-cmd-as=save]')
+            updateBtn.setAttribute('onClick', 'gdUpdate()'); 
             showList();
             app.toast.message('Google Driver','Rename successfully').show()
         });
@@ -358,7 +367,7 @@ function gdUpdate() {
     try{
         //var updateId = document.querySelector('textarea').getAttribute('data-update-id');
         var updateId = editor.id
-        var url = 'c' + updateId + '?uploadType=media';
+        var url = 'https://www.googleapis.com/upload/drive/v3/files/' + updateId + '?uploadType=media';
         fetch(url, {
             method: 'PATCH',
             headers: new Headers({
@@ -371,11 +380,14 @@ function gdUpdate() {
             console.log('File updated successfully');
             app.toast.message('Google Driver','File updated successfully').show()
             //document.querySelector('textarea').setAttribute('data-update-id', '');
-            editor.id = ''
+            //editor.id = ''
             var updateBtn = d.q('[data-cmd-as=save]') //document.getElementsByClassName('upload')[0];
             //updateBtn.innerHTML = 'Backup';
-            updateBtn.setAttribute('onClick', 'gdUpload()');
-        }).catch(err => console.error(err))
+            //updateBtn.setAttribute('onClick', 'gdUpload()');
+        }).catch(error => {
+            console.error(error)
+            app.toast.message('Error Google Driver',error.message).show()
+        })
     }catch(error){
         app.toast.message('Error Google Driver',error.message).show()
     }

@@ -65,6 +65,7 @@ require([
     'lib/dialog-users-translate',
     'lib/dialog-rename',
     'lib/gtranslate',
+    'lib/detect-virtual-keyboard',
 
     ], function(ace) {
     

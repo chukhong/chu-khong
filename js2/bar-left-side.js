@@ -86,9 +86,9 @@ fns = {
     gdNewFile:()=>{
         fileName.innerHTML = 'New file'
         //d.q('[data-cmd-as=save]').removeAttribute('')
-        editor.setValue('')
+        editor.setValue('new content')
         editor.id=''
-        
+        gdUpload()
         d.q('[data-cmd-as=save]').setAttribute('onclick', 'gdUpload()');
 
         $('#leftSidebar').offcanvas('hide')
