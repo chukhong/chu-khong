@@ -426,6 +426,6 @@ exports.gDriveScript = function (_editor, parentNode,_app) {
     gapiLoaded();
     gisLoaded()
 
-    var updateBtn = d.q('[data-cmd-as=save]')
-    updateBtn.setAttribute('onClick', 'gdUpload()');
+    // var updateBtn = d.q('[data-cmd-as=save]')
+    // updateBtn.setAttribute('onClick', 'gdUpload()');
 }

@@ -124,6 +124,9 @@ barLeftSide = function(app,_editor) {
     //     gDriveScript(editor,parentNode)
     // })
     gDriveScript(editor,parentNode,app)
+    
+    //default localfile
+    fns.localDeviceNewFile()
 };
 barLeftSide(window.app,window.editor)
 // (function(){

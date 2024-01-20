@@ -63,54 +63,78 @@ self.addEventListener('activate', function(event) {
 
 //** auto pus link
 
-self.addEventListener('fetch', function (event) {
-  event.respondWith(
-
-    caches
-    .open(CACHE_NAME)
-    .then(function (cache) {
-      return cache.match(event.request)
-        .then(function (response) {
-            var fetchPromise = fetch(event.request)
-            .then(function (networkResponse) {
-              try{                
-                var igonelist = ['plugin/','version.json',
-                '?list=chu-khong/js2/plugin',
-                '/Dicts/',
-                'accounts.google.com',
-                'script.google.com'],
-                {url} = event.request
-                if(!igonelist.find(i=>{return url.indexOf(i)!=-1}))
-                  cache.put(event.request, networkResponse.clone());
-              }catch(error){
-                console.log('Error cache ',error.message);
-              }
-              return networkResponse;
-            }).catch (error=>{
-              console.log('Error fetch ',error.message);
-            });
-            return response || fetchPromise;
-        })
-    })
-    ,
-  );
-});
-
 // self.addEventListener('fetch', function (event) {
 //   event.respondWith(
-//     // Try the cache
+
 //     caches
-//       .match(event.request)
-//       .then(function (response) {
-//         // Fall back to network
-//         return response || fetch(event.request);
-//       })
-//       .catch(function () {
-//         // If both fail, show a generic fallback:
-//         return caches.match('/chu-khong/');
-//         // However, in reality you'd have many different
-//         // fallbacks, depending on URL and headers.
-//         // Eg, a fallback silhouette image for avatars.
-//       }),
+//     .open(CACHE_NAME)
+//     .then(function (cache) {
+//       return cache.match(event.request)
+//         .then(function (response) {
+//             var fetchPromise = fetch(event.request)
+//             .then(function (networkResponse) {
+//               try{                
+//                 var igonelist = ['plugin/','version.json',
+//                 '?list=chu-khong/js2/plugin',
+//                 '/Dicts/',
+//                 'translate.googleapis.com',
+//                 'accounts.google.com',
+//                 'script.google.com'],
+//                 {url} = event.request
+//                 if(!igonelist.find(i=>{return url.indexOf(i)!=-1})){
+
+//                   console.log('[cache] ',event.request.url);
+//                   cache.put(event.request, networkResponse.clone());
+//                 }
+//               }catch(error){
+//                 console.log('Error cache ',error.message);
+//               }
+//               return networkResponse;
+//             }).catch (error=>{
+//               console.log('Error fetch ',error.message);
+//             });
+//             return response || fetchPromise;
+//         })
+//     })
+//     ,
 //   );
 // });
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith((async() => {
+
+    const cache = await caches.open(CACHE_NAME);
+
+    try {
+        const cachedResponse = await cache.match(event.request);
+        if(cachedResponse) {
+            console.log('[cachedResponse]: ', event.request.url);
+            return cachedResponse;
+        }
+
+        const fetchResponse = await fetch(event.request);
+        // if(fetchResponse) {
+        //     console.log('fetchResponse: ', event.request.url);
+        //     await cache.put(event.request, fetchResponse.clone());
+        //     return fetchResponse;
+        // }
+        var igonelist = ['plugin/','version.json',
+                        '?list=chu-khong/js2/plugin',
+                        '/Dicts/',
+                        'translate.googleapis.com',
+                        'accounts.google.com',
+                        'script.google.com'],
+                        {url} = event.request
+        if(!igonelist.find(i=>{return url.indexOf(i)!=-1})){
+
+          console.log('[cache] ',event.request.url);
+          await cache.put(event.request, fetchResponse.clone());
+        }
+        return fetchResponse;
+    }   catch (error) {
+        console.log('[Fetch failed]: ', error);
+        const cachedResponse = await cache.match('/index.html');
+        return cachedResponse;
+    }
+  })());
+});

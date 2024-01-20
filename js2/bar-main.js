@@ -25,6 +25,7 @@ window.refs = window.refs || {}
 
 var ace = require("ace/ace")
 window.editor = ace.edit('id-editor');
+//window.editor.setOption('theme',"ace/theme/monokai");
 window.editor.focus();
 
 // var session = window.editor.getSession();

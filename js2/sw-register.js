@@ -21,6 +21,10 @@ console.log('[load] register-sw');
 
   // from sarah-clack introduce
   window.addEventListener('load', async () => {
+    if(localStorage.getItem('app.loadNewVersion')=="1"){
+      localStorage.setItem('app.loadNewVersion',2)
+      window.location.reload();
+    }
     //d.id('appversion').innerHTML
     var appversion = document.querySelector('#appversion')
     //console.log('-------------');
@@ -38,6 +42,7 @@ console.log('[load] register-sw');
               registration.unregister()
               callback && callback()
               //registration.active.postMessage('SKIP_WAITING')
+              localStorage.setItem('app.loadNewVersion',1)
               window.location.reload();
             }
           }

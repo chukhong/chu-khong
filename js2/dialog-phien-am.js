@@ -149,6 +149,17 @@ var dialogPhienAm = function(editor) {
            
         },
         getAm:(event)=>{
+            try{
+
+                if(USERID==undefined||USERID==''||USERID==null){
+                    app.toast.message('Error','You must login').show()
+                    return
+                }
+            }catch(error){
+                app.toast.message('Error','You must login').show()
+                $('#dialogPhienAm').modal('hide')
+                return;
+            }
             var label = document.querySelector('label[for="amChange"]')
             var amChange = document.querySelector('#amChange')
             var formSaveChangeAm = document.querySelector('#formSaveChangeAm')

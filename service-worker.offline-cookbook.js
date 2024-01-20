@@ -380,3 +380,33 @@ self.addEventListener('fetch', function (event) {
     }),
   );
 });
+
+/**
+ * https://stackoverflow.com/questions/64234463/service-worker-offline-page-wont-load
+ * Service worker offline page won't load
+ */
+self.addEventListener('fetch', (event) => {
+  event.respondWith((async() => {
+
+    const cache = await caches.open(cacheName);
+
+    try {
+        const cachedResponse = await cache.match(event.request);
+        if(cachedResponse) {
+            console.log('cachedResponse: ', event.request.url);
+            return cachedResponse;
+        }
+
+        const fetchResponse = await fetch(event.request);
+        if(fetchResponse) {
+            console.log('fetchResponse: ', event.request.url);
+            await cache.put(event.request, fetchResponse.clone());
+            return fetchResponse;
+        }
+    }   catch (error) {
+        console.log('Fetch failed: ', error);
+        const cachedResponse = await cache.match('/en/offline.html');
+        return cachedResponse;
+    }
+  })());
+});
