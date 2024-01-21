@@ -2,10 +2,14 @@
   "name": "Chữ Không ACE",
   "short_name": "Chữ Không ACE",
   "description": "Chữ Không ACE - Ứng dụng chữ không giúp bạn biên soạn chữ hán chữ nôm, phiên âm chữ hán, chữ nôm, tra tự điển tiếng hán. Unicode 6.1.0 Radical-Stroke Index",
-  "start_url": "/chu-khong/",
+  "theme_color": "#586d79",
+  "background_color": "#586d79",
   "display": "standalone",
-  "theme_color": "#e8eaf6",
-  "background_color": "#e8eaf6",
+  "display_override": [
+    "window-controls-overlay"
+  ],
+  "Scope": "/chu-khong/",
+  "start_url": "/chu-khong/",
   "icons": [
     {
       "src": "./images/icon-192.png",
@@ -17,5 +21,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "splash_pages": null
 }
