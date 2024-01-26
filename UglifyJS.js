@@ -64,6 +64,6 @@ function run(dirname,writeDirectory) {
 
 }
 run('./js2')
-
+ 
 //   var options = {}
 //   fs.writeFileSync("app.build.mini.js", UglifyJS.minify(mini, options).code, "utf8");
