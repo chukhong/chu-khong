@@ -1,0 +1,1 @@
+"use strict";var oop=require("../lib/oop"),TextMode=require("./text").Mode,PropertiesHighlightRules=require("./properties_highlight_rules").PropertiesHighlightRules,Mode=function(){this.HighlightRules=PropertiesHighlightRules,this.$behaviour=this.$defaultBehaviour};oop.inherits(Mode,TextMode),function(){this.$id="ace/mode/properties"}.call(Mode.prototype),exports.Mode=Mode;

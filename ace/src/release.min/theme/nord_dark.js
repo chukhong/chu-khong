@@ -1,0 +1,1 @@
+exports.isDark=!0,exports.cssClass="ace-nord-dark",exports.cssText=require("./nord_dark.css"),exports.$selectionColorConflict=!0;var dom=require("../lib/dom");dom.importCssString(exports.cssText,exports.cssClass,!1);

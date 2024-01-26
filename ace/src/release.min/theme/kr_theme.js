@@ -1,0 +1,1 @@
+exports.isDark=!0,exports.cssClass="ace-kr-theme",exports.cssText=require("./kr_theme.css");var dom=require("../lib/dom");dom.importCssString(exports.cssText,exports.cssClass,!1);

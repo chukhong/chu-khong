@@ -1,0 +1,1 @@
+exports.isDark=!0,exports.cssClass="ace-mono-industrial",exports.cssText=require("./mono_industrial.css");var dom=require("../lib/dom");dom.importCssString(exports.cssText,exports.cssClass,!1);

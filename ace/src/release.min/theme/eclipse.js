@@ -1,0 +1,1 @@
+"use strict";exports.isDark=!1,exports.cssText=require("./eclipse.css"),exports.cssClass="ace-eclipse";var dom=require("../lib/dom");dom.importCssString(exports.cssText,exports.cssClass,!1);

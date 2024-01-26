@@ -1,0 +1,1 @@
+"use strict";var oop=require("../lib/oop"),tsMode=require("./typescript").Mode,Mode=function(){tsMode.call(this),this.$highlightRuleConfig={jsx:!0}};oop.inherits(Mode,tsMode),function(){this.$id="ace/mode/tsx"}.call(Mode.prototype),exports.Mode=Mode;

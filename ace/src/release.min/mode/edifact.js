@@ -1,0 +1,1 @@
+"use strict";var oop=require("../lib/oop"),TextMode=require("./text").Mode,EdifactHighlightRules=require("./edifact_highlight_rules").EdifactHighlightRules,Mode=function(){this.HighlightRules=EdifactHighlightRules};oop.inherits(Mode,TextMode),function(){this.$id="ace/mode/edifact",this.snippetFileId="ace/snippets/edifact"}.call(Mode.prototype),exports.Mode=Mode;

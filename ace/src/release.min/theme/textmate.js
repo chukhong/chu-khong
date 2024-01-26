@@ -1,0 +1,1 @@
+"use strict";exports.isDark=!1,exports.cssClass="ace-tm",exports.cssText=require("./textmate.css"),exports.$id="ace/theme/textmate";var dom=require("../lib/dom");dom.importCssString(exports.cssText,exports.cssClass,!1);

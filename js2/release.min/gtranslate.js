@@ -1,0 +1,1 @@
+"use strict";!function(){var a,o;a=window.editor,o={gtranslate:t=>{a.onPaste(t)},"gtranslate-toasts":t=>{$("#app-toast .toast-body").html(t),$("#app-toast .toast-header strong").html("Error"),$("#app-toast").toast("show")}},window.addEventListener("message",t=>{try{var a=(t||d.event)["data"];a&&a.fn&&o[a.fn](a.data)}catch(t){console.log(d.event),console.error(t)}},!1)}();

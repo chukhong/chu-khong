@@ -1,0 +1,1 @@
+"use strict";var oop=require("../../lib/oop"),XmlBehaviour=require("../behaviour/xml").XmlBehaviour,HtmlBehaviour=function(){XmlBehaviour.call(this)};oop.inherits(HtmlBehaviour,XmlBehaviour),exports.HtmlBehaviour=HtmlBehaviour;

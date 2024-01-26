@@ -1,0 +1,1 @@
+"use strict";var oop=require("../../lib/oop"),BaseFoldMode=require("./cstyle").FoldMode,FoldMode=exports.FoldMode=function(){};oop.inherits(FoldMode,BaseFoldMode),function(){}.call(FoldMode.prototype);

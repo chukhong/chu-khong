@@ -30,9 +30,13 @@ window.SHEETNAME = "dictionaries"
 
 // "unpkg":["https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js",
 // "https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table-locale-all.min.js"]
-require.config({paths: {
-    "ace":"./ace/src",
-    "lib":"./js2",
+require.config({
+    paths: {
+    // "ace":"./ace/src",
+    //"lib":"./js2",
+    "ace":"./ace/src/release.min",
+     "lib":"./js2/release.min",
+     
     "data":"./data",
     "tablednd":"./cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js",
 
@@ -42,16 +46,16 @@ shim : {
 }});
 
 require([
+    // 'lib/startdict/d',
     'ace/ace', 
     'ace/ext/searchbox',
-    'lib/startdict/d',
     'lib/sw-register',
     'lib/bar-main',
     'lib/dialog-select-word',
     'lib/dialog-phien-am',
     'lib/bar-selected',
     'lib/app-toast',
-    'lib/bar-mini',
+    'lib/bar-bottom',
     'lib/dialog-plugin',
     'lib/commands',
     'lib/app-installer',
@@ -66,7 +70,6 @@ require([
     'lib/dialog-rename',
     'lib/gtranslate',
     'lib/detect-virtual-keyboard',
-
     ], function(ace) {
     
     // window.editor = ace.edit('id-editor')

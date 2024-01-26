@@ -1,0 +1,1 @@
+"use strict";var oop=require("../lib/oop"),TextMode=require("./text").Mode,LuceneHighlightRules=require("./lucene_highlight_rules").LuceneHighlightRules,Mode=function(){this.HighlightRules=LuceneHighlightRules,this.$behaviour=this.$defaultBehaviour};oop.inherits(Mode,TextMode),function(){this.$id="ace/mode/lucene"}.call(Mode.prototype),exports.Mode=Mode;

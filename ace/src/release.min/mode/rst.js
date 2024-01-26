@@ -1,0 +1,1 @@
+"use strict";var oop=require("../lib/oop"),TextMode=require("./text").Mode,RSTHighlightRules=require("./rst_highlight_rules").RSTHighlightRules,Mode=function(){this.HighlightRules=RSTHighlightRules};oop.inherits(Mode,TextMode),function(){this.type="text",this.$id="ace/mode/rst",this.snippetFileId="ace/snippets/rst"}.call(Mode.prototype),exports.Mode=Mode;

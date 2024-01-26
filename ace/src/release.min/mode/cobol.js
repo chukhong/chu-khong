@@ -1,0 +1,1 @@
+"use strict";var oop=require("../lib/oop"),TextMode=require("./text").Mode,CobolHighlightRules=require("./cobol_highlight_rules").CobolHighlightRules,Mode=function(){this.HighlightRules=CobolHighlightRules,this.$behaviour=this.$defaultBehaviour};oop.inherits(Mode,TextMode),function(){this.lineCommentStart="*",this.$id="ace/mode/cobol"}.call(Mode.prototype),exports.Mode=Mode;

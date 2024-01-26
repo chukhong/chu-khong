@@ -1,0 +1,1 @@
+"use strict";var oop=require("../lib/oop"),TextMode=require("./text").Mode,LispHighlightRules=require("./lisp_highlight_rules").LispHighlightRules,Mode=function(){this.HighlightRules=LispHighlightRules,this.$behaviour=this.$defaultBehaviour};oop.inherits(Mode,TextMode),function(){this.lineCommentStart=";",this.$id="ace/mode/lisp"}.call(Mode.prototype),exports.Mode=Mode;

@@ -1,0 +1,1 @@
+"use strict";var oop=require("../lib/oop"),TextMode=require("./text").Mode,VHDLHighlightRules=require("./vhdl_highlight_rules").VHDLHighlightRules,Mode=function(){this.HighlightRules=VHDLHighlightRules,this.$behaviour=this.$defaultBehaviour};oop.inherits(Mode,TextMode),function(){this.lineCommentStart="--",this.$id="ace/mode/vhdl"}.call(Mode.prototype),exports.Mode=Mode;

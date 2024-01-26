@@ -1,0 +1,1 @@
+"use strict";var oop=require("../../lib/oop"),MixedFoldMode=require("./mixed").FoldMode,XmlFoldMode=require("./xml").FoldMode,CStyleFoldMode=require("./cstyle").FoldMode,FoldMode=exports.FoldMode=function(e,o){MixedFoldMode.call(this,new XmlFoldMode(e,o),{"js-":new CStyleFoldMode,"css-":new CStyleFoldMode})};oop.inherits(FoldMode,MixedFoldMode);

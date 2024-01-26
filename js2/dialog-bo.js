@@ -15,11 +15,11 @@ function builtModal(){
             },
             ['div',{class:"modal-dialog modal-lg modal-fullscreen", role:"document"},
                 ['div',{class:"modal-content bd-gray-900"},
-                    ['div',{class:"modal-header"},
+                    ['div',{class:"modal-header m-0 p-0"},
                         ['div',{class:"nav-item", id:"titleDialogSystemWords"},'System Words'],
                         ['button',{'type':"button",'class':"btn-secondary-close",'data-bs-dismiss':"modal", 'aria-label':"Close"}],
                     ],
-                    ['div',{class:"modal-body", id:"bodyDialogSystemWords"}],
+                    ['div',{class:"modal-body m-0 p-0 p-y-1", id:"bodyDialogSystemWords"}],
                     // ['div',{class:"modal-footer"},
                     //     ['button',{'type':"button",'class':"btn btn-secondary",'data-bs-dismiss':"modal", 'aria-label':"Close"},'Close']
                     // ],

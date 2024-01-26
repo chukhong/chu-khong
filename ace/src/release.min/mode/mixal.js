@@ -1,0 +1,1 @@
+"use strict";var oop=require("../lib/oop"),TextMode=require("./text").Mode,MixalHighlightRules=require("./mixal_highlight_rules").MixalHighlightRules,Mode=function(){this.HighlightRules=MixalHighlightRules};oop.inherits(Mode,TextMode),function(){this.$id="ace/mode/mixal",this.lineCommentStart="*"}.call(Mode.prototype),exports.Mode=Mode;

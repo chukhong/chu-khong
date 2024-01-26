@@ -1,0 +1,1 @@
+"use strict";var oop=require("../lib/oop"),HtmlMode=require("./html").Mode,NunjucksHighlightRules=require("./nunjucks_highlight_rules").NunjucksHighlightRules,Mode=function(){this.HighlightRules=NunjucksHighlightRules};oop.inherits(Mode,HtmlMode),function(){this.$id="ace/mode/nunjucks"}.call(Mode.prototype),exports.Mode=Mode;
