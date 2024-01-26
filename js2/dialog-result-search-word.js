@@ -435,12 +435,25 @@ function searchUserDict(key) {
     })
 }
 function init(){
+    var parentNode = d.q('body')
+    function loadWhenOffline(){
+        var myListDict = util.getOption('listDict')
+        if (myListDict) {
+            myListDict = JSON.parse(myListDict)
+            builtModalChooseDicts(editor, parentNode, myListDict)
+            myListDict.map(i => {
+                $(`input[value="${i}"]`)[0].checked = true
+            })
+            loadDictFromChoose(myListDict)
+        }
+        
+    }
     if(!navigator.onLine){
+        loadWhenOffline()
         app.toast.message('Alert','internet is off').show()
         return
-    }
+    } 
     
-    var parentNode = d.q('body')
     var url = script_url + "?q=" + JSON.stringify({
         SHEETNAME: "listdict",
         action: "filter",
@@ -482,15 +495,6 @@ function init(){
         //     myListDict = JSON.parse(myListDict)
         //     loadDictFromChoose(myListDict)
         // }
-        var myListDict = util.getOption('listDict')
-        if (myListDict) {
-            myListDict = JSON.parse(myListDict)
-            builtModalChooseDicts(editor, parentNode, myListDict)
-            myListDict.map(i => {
-                $(`input[value="${i}"]`)[0].checked = true
-            })
-            loadDictFromChoose(myListDict)
-        }
         app.toast.message('Error',error.message).show()
     })    
 }

@@ -32,10 +32,10 @@ window.SHEETNAME = "dictionaries"
 // "https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table-locale-all.min.js"]
 require.config({
     paths: {
-    // "ace":"./ace/src",
-    //"lib":"./js2",
-    "ace":"./ace/src/release.min",
-     "lib":"./js2/release.min",
+    "ace":"./ace/src",
+    "lib":"./js2",
+    // "ace":"./ace/src/release.min",
+    // "lib":"./js2/release.min",
      
     "data":"./data",
     "tablednd":"./cdnjs.cloudflare.com/ajax/libs/TableDnD/0.9.1/jquery.tablednd.js",

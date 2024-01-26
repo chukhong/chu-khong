@@ -13,8 +13,8 @@ function builtModal(){
             
             ['div',{class:"modal-dialog modal-lg",id:"dialogFormRename", role:"document"},
                 ['div',{class:"modal-content bd-gray-900"},
-                    ['div',{class:"modal-header navbar navbar-expand-lg"},
-                            ['h1',{class:"modal-title mt-3"},
+                    ['div',{class:"modal-header m-0 p-0 px-3 navbar navbar-expand-lg"},
+                            ['h4',{class:"modal-title"},
                             'Rename'
                             ],
                         ['button',{'type':"button",'class':"btn-secondary-close",'data-bs-dismiss':"modal", 'aria-label':"Close"}],
@@ -23,14 +23,15 @@ function builtModal(){
                         ["div",{id:'formSaveRename'},//,"style":"visibility:hidden"
                             ["label",{"for":"inputRename","class":"px-3"},""],
                             ["input",{"type":"text",id:"inputRename"}],
-                            ['button',{
-                                'type':"button",
-                                'class':"btn btn-primary mx-3",
-                                'data-cmd-rename':'save'
-                            },'save'],
+                           
                         ]
                     ],
                     ['div',{class:"modal-footer"},
+                        ['button',{
+                            'type':"button",
+                            'class':"btn btn-primary mx-3",
+                            'data-cmd-rename':'save'
+                        },'save'],
                         ['button',{'type':"button",'class':"btn btn-secondary",'data-bs-dismiss':"modal", 'aria-label':"Close"},'Close']
                     ],
                 ],
