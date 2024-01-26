@@ -63,6 +63,7 @@ function run(dirname,writeDirectory) {
         });
 
 }
-run('./ace/src')
+run('./data')
+
 //   var options = {}
 //   fs.writeFileSync("app.build.mini.js", UglifyJS.minify(mini, options).code, "utf8");
