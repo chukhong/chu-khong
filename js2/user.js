@@ -140,10 +140,10 @@ function handleCredentialResponse(response) {
         window.USERID = res.message.uuid
     })
 
-    cookieStore.set('session-token2',JSON.stringify(token))
+    cookieStore.set('session-user-provice',JSON.stringify(token))
 
     cookieStore
-    .get('session-token2')
+    .get('session-user-provice')
     .then(r=>{
         //r = decodeURIComponent(r.value)
         //r = r.slice(2,r.length)
@@ -163,7 +163,7 @@ function handleCredentialResponse(response) {
 function loadIconUser(){
 
     cookieStore
-    .get('session-token2')
+    .get('session-user-provice')
     .then(r1=>{
         //r = decodeURIComponent(r.value)
         //r = r.slice(2,r.length)
@@ -192,55 +192,13 @@ function loadIconUser(){
         }
         //console.log(userInfor.uuid);
     })
-
-    /*
-    
-    fetch('/user/profile?&view=json')
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error('Something went wrong');
-    })
-    .then(data=>{
-        // console.log(data);
-        // var e = JSON.parse(data)
-        var e = data
-        //console.log(e);
-        $('#userIcon')[0].src = e.picture
-        showUserInfor(data)
-        //window.userID = e
-        $('#buttonDiv').hide()
-    })
-    .catch(error=>{
-
-        cookieStore
-        .get('session-token')
-        .then(r=>{
-            r = decodeURIComponent(r.value)
-            r = r.slice(2,r.length)
-            //console.log(r)    
-            r = JSON.parse(r)
-            showUserInfor(r)
-            //console.log(r)
-            $('#userIcon')[0].src = r.picture
-            $('#buttonDiv').hide()
-        }).catch(error=>{
-            // console.log(error);
-            $('#app-toast .toast-header strong').html('Error')
-            $('#app-toast .toast-body').html(error)
-            $('#app-toast').toast('show')
-        })
-
-    })
-    */
 }
 function showUserInfor(inforJson){
     $('#dialogUser h5')[0].innerHTML = inforJson.name
 }
 
 function initUser(){
-    var token = getCookie('session-token2')
+    var token = getCookie('session-user-provice')
     //console.log('session-token',token);
     if(!navigator.onLine){
         return
@@ -251,7 +209,7 @@ function initUser(){
     }catch(error){
         location.reload();
     }
-    if(token==''){
+    if(token.length==0){
         google.accounts.id.initialize({
             client_id: "563587575029-89224il8qt9bc2i5d3f15fucn6nutv0t.apps.googleusercontent.com",
             callback: handleCredentialResponse
