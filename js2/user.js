@@ -5,9 +5,12 @@
 var buildDom = require("ace/lib/dom").buildDom;
 
 var {jwt_decode} = require("lib/jwt-decode");
+var { userDictSote, appStore } = require("lib/idb-keyval-iife")
+//console.log(appStore);
 //require("lib/jwt-decode");
 window.jwt_decode = jwt_decode
 function builtModal() {
+    //alert('hello')
     var
     item =["div",{"class":'list-group-item py-3 lh-sm'},
             ["div",{"class":"d-flex w-100 justify-content-end"},
@@ -137,31 +140,16 @@ function handleCredentialResponse(response) {
         //console.log(token);
         //token.uuid = res.uuid
         cookieStore.set('session-userinfor',JSON.stringify(res.message))
+        appStore.set('session-userinfor',JSON.stringify(res.message))
         window.USERID = res.message.uuid
     })
-
+    appStore.set('session-user-provice',JSON.stringify(token))
     cookieStore.set('session-user-provice',JSON.stringify(token))
 
-    cookieStore
-    .get('session-user-provice')
-    .then(r=>{
-        //r = decodeURIComponent(r.value)
-        //r = r.slice(2,r.length)
-        //console.log(r)    
-        r = JSON.parse(r.value)
-        
-        //showUserInfor(r)
-        //console.log(r)
-        $('#dialogUser h5')[0].innerHTML = r.name
-        $('#userIcon')[0].src = r.picture
-        $('#buttonDiv').hide()
-    })
-    .catch(error=>{
-        app.toast.message('Error',error.message).show()
-    })
+    loadIconUser()
 }
 function loadIconUser(){
-
+    console.log('[loadIconUser]');
     cookieStore
     .get('session-user-provice')
     .then(r1=>{
@@ -197,8 +185,17 @@ function showUserInfor(inforJson){
     $('#dialogUser h5')[0].innerHTML = inforJson.name
 }
 
-function initUser(){
+async function initUser(){
     var token = getCookie('session-user-provice')
+    if(token.length==0){
+        token = await appStore.get('session-user-provice')
+        if(token){
+            cookieStore.set('session-user-provice',token)
+            var userinfor = await appStore.get('session-userinfor')
+            cookieStore.set('session-userinfor',userinfor)
+        }
+
+    }
     //console.log('session-token',token);
     if(!navigator.onLine){
         return
@@ -209,7 +206,7 @@ function initUser(){
     }catch(error){
         location.reload();
     }
-    if(token.length==0){
+    if(!token || token.length==0){
         google.accounts.id.initialize({
             client_id: "563587575029-89224il8qt9bc2i5d3f15fucn6nutv0t.apps.googleusercontent.com",
             callback: handleCredentialResponse
@@ -222,6 +219,8 @@ function initUser(){
         );
         google.accounts.id.prompt(); // also display the One Tap dialog
     }
+
+    loadIconUser()
 }
 var basicFN = function(editor) {
     builtModal()
@@ -232,7 +231,6 @@ var basicFN = function(editor) {
     // window.addEventListener('load', function() {
     //     initUser()
     // })
-    loadIconUser()
     initUser()
     //console.log('[user] load');
     var version = localStorage.getItem('app.version')||'1.1.1'

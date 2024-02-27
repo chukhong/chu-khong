@@ -240,7 +240,7 @@ function builtModalChooseDicts(editor, parentNode, arrList) {
     })
     var dom =
         ["div", { "class": "modal", "tabindex": "-1", id: "selectDicts" },
-            ["div", { "class": "modal-dialog" },
+            ["div", { "class": "modal-dialog modal-dialog-scrollable" },
                 ["div", { "class": "modal-content" },
                     ["div", { "class": "modal-header" },
                         ["h5", { "class": "modal-title" }, "Select dict"],
