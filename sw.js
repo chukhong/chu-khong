@@ -101,6 +101,7 @@ self.addEventListener('activate', function(event) {
 // });
 
 self.addEventListener('fetch', (event) => {
+  //console.log('[test location.hostname]',location.hostname);
   event.respondWith((async() => {
 
     const cache = await caches.open(CACHE_NAME);
@@ -118,13 +119,16 @@ self.addEventListener('fetch', (event) => {
         //     await cache.put(event.request, fetchResponse.clone());
         //     return fetchResponse;
         // }
-        var igonelist = ['plugin/','version.json',
-                        '?list=chu-khong/js2/plugin',
+        var igonelist = ['version.json',
                         '/Dicts/',
                         'translate.googleapis.com',
                         'accounts.google.com',
                         'script.google.com'],
                         {url} = event.request
+        if(location.hostname !='localhost'){
+          igonelist.push('plugin/')
+          igonelist.push('?list=chu-khong/js2/plugin')
+        }
         if(!igonelist.find(i=>{return url.indexOf(i)!=-1})){
 
           console.log('[cache] ',event.request.url);

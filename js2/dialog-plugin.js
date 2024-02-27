@@ -44,9 +44,11 @@ var baiscFN = function(app,editor) {
     if(location.hostname !='localhost'){
         var btn = d.q('[data-target="#dialogListPlugin"]')
         btn.setAttribute('class','d-none')
+        return;
     }
     // $('#dialogListPlugin')
     // .on('shown.bs.modal',()=>{
+        try{
         fetch(new Request('/stardict/dirPublic/?list=chu-khong/js2/plugin'))
         .then(res=>res.text())
         .then(res=>{
@@ -71,6 +73,9 @@ var baiscFN = function(app,editor) {
             })
             
         })
+    }catch(error){
+        console.log(error);
+    }
     //})
 };
 baiscFN(window.app,window.editor)
