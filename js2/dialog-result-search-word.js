@@ -316,7 +316,7 @@ async function loadDictFromChoose(data) {
 }
 
 var partsZip = {}
-var jszipWorker = new Worker("js/startdict/jszip-worker.js");
+var jszipWorker = new Worker("js2/startdict/jszip-worker.js");
 var eventReceiver = {
     builtDataFromJszip: function (data) {
         //console.log(data)
