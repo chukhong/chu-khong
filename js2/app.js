@@ -28,6 +28,8 @@ window.APIID = 'AKfycbzsyBWc4GsJBqj3vlTr8l0k_uZFoYV_nGbnEO_9khBgBqgAoKrs4pX6hQ9g
 window.script_url = "https://script.google.com/macros/s/" + APIID + "/exec";
 window.SHEETNAME = "dictionaries" 
 
+window.historyWords = []
+
 // "unpkg":["https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js",
 // "https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table-locale-all.min.js"]
 require.config({

@@ -11,6 +11,7 @@ require("lib/startdict/pako_inflate")
 require("lib/startdict/inflate")
 require("lib/startdict/jszip.min")
 require("lib/startdict/stardict")
+require("lib/dialog-history-word")
 
 window.userDicts = []
 
@@ -164,18 +165,18 @@ function builtModal(editor, fns1) {
         },
             ['div', { class: "navbar navbar-dark bd-navbar sticky-top offcanvas-header" },
                 ['div', { class: "modal-header" },
-                    ['div', { class: "nav-item", id: "titleDialogResultSearchWord" },
+                    ['div', { class: "nav-item float-right", id: "titleDialogResultSearchWord" },
                         ['form', {
                             id: 'search-from-dict',
                             action: '#',
                         },
-                            ['input', { id: "search-input",name:'search-input', 'type': 'search'}, ''],
+                            ['input', { id: "search-input",name:'search-input', 'type': 'search','style':"width:90px"}, ''],
                             ['button', {
                                 id: 'btn-search-word',
                                 'type': 'submit',
                                 'data-dict-cmd-as': 'formSubmit',
                                 'class': 'btn'
-                            },
+                                },
                                 ["i", { class: "material-icons" }, "search"]],
                             ['button', { 'data-dict-cmd-as': 'copy', 'type': 'button', 'class': 'btn' },
                                 ["i", { class: "material-icons" }, "content_copy"]],
@@ -243,15 +244,15 @@ function builtModalChooseDicts(editor, parentNode, arrList) {
             ["div", { "class": "modal-dialog modal-dialog-scrollable" },
                 ["div", { "class": "modal-content" },
                     ["div", { "class": "modal-header" },
-                        ["h5", { "class": "modal-title" }, "Select dict"],
+                        ["h5", { "class": "modal-title" }, "Select Dictionaries"],
                         ["button", { "type": "button", "class": "btn-close", "data-bs-dismiss": "modal", "aria-label": "Close" }, ""],
                     ],
                     ["div", { "class": "modal-body" },
                         list
                     ],
-                    ["div", { "class": "modal-footer" },
-                        ["button", { "type": "button", "class": "btn btn-secondary", "data-bs-dismiss": "modal" }, "Close"],
-                    ],
+                    // ["div", { "class": "modal-footer" },
+                    //     ["button", { "type": "button", "class": "btn btn-secondary", "data-bs-dismiss": "modal" }, "Close"],
+                    // ],
                 ]
             ]
         ]
@@ -283,10 +284,16 @@ async function loadDictFromChoose(data) {
 
     var listPath = data.map(i => { return '/chu-khong/Dicts/' + i })
     //caches.open('workbox-precache-v2-'+location.href)
-    caches.open('mysite-dynamic')
+    if(navigator.onLine){
+        caches.open('mysite-dynamic')
         .then(function (cache) {
             cache.addAll(listPath);
         });
+    }
+
+    // var cache  = await caches.open('mysite-dynamic')
+    // var cachedResponse = await cache.match('/chu-khong/Dicts/bktd-dv.zip')
+ 
 
     for (var j = 0; j < data.length; await j++) {
         var c, b, i = data[j]
@@ -498,6 +505,7 @@ function init(){
         app.toast.message('Error',error.message).show()
     })    
 }
+
 var dialogResultSearchWord = function (app, editor) {
     
     builtModal(editor)
@@ -515,7 +523,8 @@ var dialogResultSearchWord = function (app, editor) {
             evt.preventDefault()
             meanningShow.innerHTML = ''
             meanningUser.innerHTML = ''
-
+            if(!historyWords.includes(key))
+                historyWords.push(key)
 
             jszipWorker.postMessage({ fn: 'findWord', data: key });
             return false
@@ -530,6 +539,9 @@ var dialogResultSearchWord = function (app, editor) {
         },
         checkDownloadDict: (event) => {
 
+        },
+        history:()=>{
+            $('#dialogHistoryWord').modal('show')
         }
     }
 

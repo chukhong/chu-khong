@@ -31,10 +31,16 @@ function builtModal() {
             ["div", {
                     "class": "offcanvas-header"
                 },
+                ["img",{"alt":"","width":"24","height":"24","class":"rounded-circle me-2 userIcon2"},
+                ],
                 ["h5", {
                     "class": "offcanvas-title",
                     "id": "staticBackdropLabel"
                 }, "user info"],
+
+                ['a',{'href':'#',class:'btn'},
+                    ['i',{class:"material-icons"},'exit_to_app']
+                ],
                 ["button", {
                     "type": "button",
                     "class": "btn-close",
@@ -162,7 +168,11 @@ function loadIconUser(){
         //console.log(r)
         $('#dialogUser h5')[0].innerHTML = r.name
         $('#userIcon')[0].src = r.picture
-        $('#userIcon')[0].src = r.picture
+        $('.userIcon2')[0].src = r.picture
+
+        userIcon.classList.toggle('d-none')
+        userIconOutLine.classList.toggle('d-none')
+        
 
         $('#buttonDiv').hide()
         

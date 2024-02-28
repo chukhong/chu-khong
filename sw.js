@@ -113,6 +113,16 @@ self.addEventListener('fetch', (event) => {
             return cachedResponse;
         }
 
+        if(!cachedResponse) {
+          const cache2 = await caches.open('mysite-dynamic');
+          const cachedResponse2 = await cache2.match(event.request);
+          if(cachedResponse2){
+            console.log('[cachedResponse mysite-dynamic]: ', event.request.url);
+            return cachedResponse2;
+          }
+        }
+        
+
         const fetchResponse = await fetch(event.request);
         // if(fetchResponse) {
         //     console.log('fetchResponse: ', event.request.url);
